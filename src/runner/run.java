@@ -19,13 +19,12 @@ public class run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         CoreServices core = new CoreServices();
 //        System.out.print(F23.getPageLegth(14653));
 ////        System.out.println(core.getPageInfoHtml(3649517));
 //        System.out.println(F24.getNumberOfPageWatchers(3649517));
 //        System.out.println(core.parseInt("123,234"));
-        CoreServices.getNumberOfSearchResult("link");
+//        CoreServices.getNumberOfSearchResult("link");
     }
     
 }
