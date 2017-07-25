@@ -5,10 +5,16 @@
  */
 package features;
 
+import core.CoreServices;
+
 /**
  *
  * @author amin
  */
 public class F1 {
+    
+    public static double getNumberOfGoogleSearchResult(String query){
+        return CoreServices.getNumberOfSearchResult(query);
+    }
     
 }
