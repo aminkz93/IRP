@@ -5,6 +5,7 @@
  */
 package core;
 
+import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.util.DoubleSummaryStatistics;
 import java.util.logging.Level;
@@ -94,6 +95,43 @@ public class CoreServices {
     }
     public static String getLength(int pageId){
         return getJsonFieldValue(getJsonById(pageId),"length",pageId);
+    }
+    
+    public static String[] getPageCategory(int pageId){
+        String[] categories  = null;
+        String title = getTitle(pageId);
+        String[] words = title.split(" ");
+        StringBuffer sb = new StringBuffer();
+        for(String word : words){
+            sb.append(word);
+            sb.append("_");
+        }
+        String pageName=sb.substring(1,sb.length()-2);
+        String url = "https://en.wikipedia.org/w/api.php?action=query&titles=" + pageName + "&prop=categories&format=json";
+
+        try {
+            String jsonCategory = Jsoup.connect(url).ignoreContentType(true).execute().body();
+            JsonElement jsonElement= new JsonParser().parse(jsonCategory);
+            JsonObject jRoot = jsonElement.getAsJsonObject()
+                    .getAsJsonObject("query")
+                    .getAsJsonObject("pages")
+                    .getAsJsonObject(String.valueOf(pageId));
+        
+            JsonArray JCategory  = jRoot.getAsJsonArray("categories");
+            categories = new String[JCategory.size()];
+            for (int i = 0; i < JCategory.size(); i++) {
+                JsonObject item = JCategory.get(i).getAsJsonObject();
+                String itemCategory = item.get("title").toString();
+                itemCategory = itemCategory.substring(10,itemCategory.length()-1);
+                categories[i] = itemCategory;
+            }
+            
+            return categories;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
     /*
         this method parse Integer from string that includes ',' as separators

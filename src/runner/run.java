@@ -6,9 +6,9 @@
 package runner;
 
 import core.CoreServices;
-import features.F1;
-import features.F23;
-import features.F24;
+import features.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,6 +32,14 @@ public class run {
         for (int i = 0; i < 4; i++) {
             System.out.println(F1.getNumberOfGoogleSearchResult(qu[i]));
         }
+        
+        List<Integer> docsId = new ArrayList<Integer>();
+        docsId.add(5079506);
+        docsId.add(18787);
+        docsId.add(42010);
+        docsId.add(2126660);
+        System.out.println(F3.getCategoriesSimilarity(18646, docsId));
+        
     }
 
 }
