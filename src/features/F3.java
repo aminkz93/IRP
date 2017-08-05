@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ *
+ * @author Parastoo
+ */
 public class F3 {
 
 
@@ -20,7 +24,7 @@ public class F3 {
         return result / (float)Math.max(queryCategories.length, docCategories.length);
     }
 
-    public static float getCatSimilarity(int queryId, List<Integer> docsId) {
+    public static float getCategoriesSimilarity(int queryId, List<Integer> docsId) {
         float matchedCategories = 0;
         List<String[]> docsCategories = new ArrayList<String[]>();
         String[] queryCategories = CoreServices.getPageCategory(queryId);

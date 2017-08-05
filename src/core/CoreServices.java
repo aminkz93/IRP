@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -160,6 +162,12 @@ public class CoreServices {
 
         }
         return Integer.parseInt(sb.toString());
+    }
+    
+    public static ResultSet executeSparqlQuery(String query){
+        
+        return SPARQLUtil.INSTANCE.dbpediaQuery(query);
+        
     }
 
 
