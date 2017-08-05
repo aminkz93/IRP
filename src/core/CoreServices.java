@@ -41,6 +41,19 @@ public class CoreServices {
         }
         return json;
     }
+    public static Document getHtmlDocument(int entityId){
+        String entity = getTitle(entityId);
+        String url = "https://en.wikipedia.org/wiki/" + entity;
+        
+        Element element=null;
+        try {
+            Document htmlDocument = Jsoup.connect(url).get();
+            return htmlDocument;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public static double getNumberOfSearchResult(String query){
         String searchURL = "https://www.google.com/search?site=&source=hp&q="+query+"&oq="+query+"&gs_l=psy-ab.3..35i39k1l2j0i67k1l2.890.1193.0.1300.4.4.0.0.0.0.204.372.0j1j1.2.0....0...1.1.64.psy-ab..2.1.203.0.QEjnRPYjPFQ";
         Element element=null;
