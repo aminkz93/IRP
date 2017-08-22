@@ -5,20 +5,8 @@
  */
 package runner;
 
-import core.SPARQLUtil;
 import core.CoreServices;
 import features.*;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.RDFNode;
 
 /**
  *
@@ -50,8 +38,8 @@ public class run {
 //        docsId.add(2126660);
 //        System.out.println(F3.getCategoriesSimilarity(18646, docsId));
         
-        
-        F8.executeQuery();
+        System.out.println(CoreServices.getTitle(6013119));
+//        F8.executeQuery();
 	
 
     }
