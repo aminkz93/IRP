@@ -6,7 +6,11 @@
 package runner;
 
 import core.CoreServices;
+import core.ProcessInputFiles;
 import features.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -38,9 +42,13 @@ public class run {
 //        docsId.add(2126660);
 //        System.out.println(F3.getCategoriesSimilarity(18646, docsId));
         
-        System.out.println(CoreServices.getTitle(6013119));
+//        System.out.println(CoreServices.getTitle(6013119));
 //        F8.executeQuery();
-	
+//        ProcessInputFiles.queryHashMapCreateAndSaveRunner();
+//        ProcessInputFiles.documentHashMapCreateAndSaveRunner();
+//        ProcessInputFiles.createDocumentHashMap(new File("./data/2008/MQ2008Entities.txt"));
+    HashMap<String, ArrayList<String>> map = ProcessInputFiles.deserializeHashMap("./data/2008/serialized/2008-documents-Hashmap");
+    System.out.println(map.keySet().size());
 
     }
     
