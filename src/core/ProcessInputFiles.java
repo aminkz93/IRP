@@ -28,6 +28,9 @@ import java.util.logging.Logger;
  */
 public class ProcessInputFiles {
 
+    /*
+    CREATES A HASHMAP OF THE QUERIES ENTITIES FROM THE GIVEN FILE
+     */
     private static HashMap<String, ArrayList<String>> createQueryHashMap(File fin) throws IOException {
         HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
         // Construct BufferedReader from FileReader
@@ -58,11 +61,26 @@ public class ProcessInputFiles {
         }
 
     }
-    
+
     private static void storeDocumentHashMap(String documentFile, String outputName) {
         try {
             HashMap<String, ArrayList<String>> map = createDocumentHashMap(new File(documentFile));
             String saveAddress = documentFile.substring(0, 11) + "/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private static void storeQueryRelatedDocumentHashMap(String[] letorFiles, String outputName) {
+        try {
+            File[] input = new File[letorFiles.length];
+            for (int i = 0; i < input.length; i++) {
+                input[i] = new File(letorFiles[i]);
+            }
+            HashMap<String, ArrayList<String>> map = createQueryRelatedDocumentHashMap(input);
+            String saveAddress = letorFiles[0].substring(0, 11) + "/serialized/" + outputName;
             serializeHashMap(map, saveAddress);
         } catch (IOException ex) {
             Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,7 +129,7 @@ public class ProcessInputFiles {
 
     /* 
     LOAD QUERY FILES AND CREATE HASHMAP
-    THEN SAVE THEN OBJECTS OF HASHMAPS USING SERIALIZATION
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
     HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
      */
     public static void queryHashMapCreateAndSaveRunner() {
@@ -121,7 +139,25 @@ public class ProcessInputFiles {
             storeQueryHashMap(queryFiles[i], outputNames[i]);
         }
     }
-    
+
+    /* 
+    LOAD Letor S1-S5 query-doc FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void queryRelatedDocumentHashMapCreateAndSaveRunner() {
+        String[][] letorFiles = {{"./data/2007/letor/S1.txt", "./data/2007/letor/S2.txt", "./data/2007/letor/S3.txt", "./data/2007/letor/S4.txt", "./data/2007/letor/S5.txt"}, {"./data/2008/letor/S1.txt", "./data/2008/letor/S2.txt", "./data/2008/letor/S3.txt", "./data/2008/letor/S4.txt", "./data/2008/letor/S5.txt"}};
+        String[] outputNames = {"2007-queryRelatedDocuments-Hashmap", "2008-queryRelatedDocuments-Hashmap"};
+        for (int i = 0; i < letorFiles.length; i++) {
+            storeQueryRelatedDocumentHashMap(letorFiles[i], outputNames[i]);
+        }
+    }
+
+    /* 
+    LOAD Document FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
     public static void documentHashMapCreateAndSaveRunner() {
         String[] documentFiles = {"./data/2007/MQ2007Entities.txt", "./data/2008/MQ2008Entities.txt"};
         String[] outputNames = {"2007-documents-Hashmap", "2008-documents-Hashmap"};
@@ -130,6 +166,9 @@ public class ProcessInputFiles {
         }
     }
 
+    /*
+    CREATES A HASHMAP OF THE DOCUMENTS ENTITIES FROM THE GIVEN FILE
+     */
     private static HashMap<String, ArrayList<String>> createDocumentHashMap(File fin) throws IOException {
         HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
         // Construct BufferedReader from FileReader
@@ -156,6 +195,40 @@ public class ProcessInputFiles {
             map.put(docId, entList);
         }
         br.close();
+        return map;
+    }
+
+    /*
+    CREATES A HASHMAP OF THE QUERY-DOCUMENTS ENTITIES FROM THE GIVEN FILE
+    EACH QUERY IS RELATED TO SOME DOCUMENTS
+    QUERY IS THE KEY AND ARRAY LIST OF DOCUMENTS IS THE VALUE OF THE HASHMAP
+     */
+    private static HashMap<String, ArrayList<String>> createQueryRelatedDocumentHashMap(File[] fin) throws IOException {
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        // Construct BufferedReader from FileReader
+        for (File input : fin) {
+            BufferedReader br = new BufferedReader(new FileReader(input));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                String qId = line.split(" ")[1];
+                String docId = line.split(" ")[50];
+                ArrayList<String> docList;
+                if (map.containsKey(qId)) {
+                    docList = map.get(qId);
+                } else {
+                    docList = new ArrayList<String>();
+                }
+                docList.add(docId);
+                map.put(qId, docList);
+            }
+            br.close();
+            System.out.println(map.keySet().size() + " qid are added in total");
+            int total=0;
+            for(String key : map.keySet()){
+                total += map.get(key).size();
+            }
+            System.out.println("total number of query-document relation " + total);
+        }
         return map;
     }
 
