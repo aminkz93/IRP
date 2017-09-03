@@ -47,7 +47,6 @@ public class CoreServices {
         String entity = getTitle(entityId);
         String url = "https://en.wikipedia.org/wiki/" + entity;
         
-        Element element=null;
         try {
             Document htmlDocument = Jsoup.connect(url).get();
             return htmlDocument;

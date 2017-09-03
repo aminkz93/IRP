@@ -1,2 +1,8 @@
 /build/
 /dist/
+jar/.DS_Store
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/project.properties
+*.jar
+*.jar
