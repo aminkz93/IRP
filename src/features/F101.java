@@ -5,17 +5,23 @@
  */
 package features;
 
-import core.Entity;
+import core.WorkingSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
  * @author amin
  */
-public class F99 {
-    public static int execute(String qid,String docid){
-        return 0;
-        
+public class F101 {
+    private WorkingSet workingSet;
+
+    public F101(WorkingSet ws) {
+        workingSet = ws;
+    }
+
+    public double execute(String docid) {
+        return workingSet.getNumberOfDocEntities(docid);
     }
     
 }
