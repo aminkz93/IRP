@@ -15,7 +15,7 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
  *
  * @author Parastoo
  */
-public class F8 {
+public class F008 {
     
     public static void executeQuery() throws Exception {
             

@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Parastoo
  */
-public class F3 {
+public class F003 {
 
 
     private static float compareCategories(String[] queryCategories, String[] docCategories) {
@@ -34,7 +34,7 @@ public class F3 {
         }
         
         for (String[] item : docsCategories) {
-            matchedCategories += F3.compareCategories(queryCategories , item);
+            matchedCategories += F003.compareCategories(queryCategories , item);
         }
         
         return matchedCategories / (float)docsCategories.size();

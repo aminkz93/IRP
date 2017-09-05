@@ -8,6 +8,7 @@ package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import core.ProcessInputFiles;
 
 /**
  *
@@ -18,7 +19,7 @@ public class WorkingSet {
     private HashMap<String, ArrayList<String>> query;// = new HashMap<String, ArrayList<String>>();
     private HashMap<String, ArrayList<String>> document;
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
-    private String setAddress;
+    private String workingSetName;
 
     public int getNumberOfAllExistingDocsInSet() {
         return document.keySet().size();
@@ -41,10 +42,15 @@ public class WorkingSet {
         }
         return count;
     }
-
-    public WorkingSet(String setAddress) {
-        this.setAddress = setAddress;
-        loadFiles();
+    /*
+    workingSetName IS NAME OF THE SET IN WHICH THE RELEVANT HASHMAPS ARE SOTRED
+    THE CONSTRUCTOR TAKES THE workingSetName AND LOAD THE HASHMAP INTO ITS HASHMAPS
+    AND IS THEN RETURNED TO CALLER ALONG WITH ALL NEEDED METHODS
+    ADDRESS : "./data/2007/serialized/"
+    */
+    public WorkingSet(String workingSetName) {
+        this.workingSetName = workingSetName;
+        loadFiles(workingSetName);
     }
 
     public ArrayList<String> getQueryEntities(String qId) {
@@ -73,8 +79,15 @@ public class WorkingSet {
     public int getNumberOfDocEntities(String docId) {
         return document.get(docId).size();
     }
-
-    private void loadFiles() {
-
+    /*
+    WORKING SET NAME IS 2007 OR 2008
+    OR ANY OTHER SET WHICH MAY BE ADDED LATER
+    */
+    private void loadFiles(String workingSetName) {
+        String address = "./data/"+ workingSetName +"/serialized/";
+//        "./data/2007/serialized/2007-queryRelatedDocuments-Hashmap"
+        document = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-documents-Hashmap" );
+        document = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-queries-Hashmap" );
+        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-queryRelatedDocuments-Hashmap" );
     }
 }

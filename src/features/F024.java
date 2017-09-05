@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 /**
  * Created by amin on 7/21/17.
  */
-public class F24 {
+public class F024 {
     public static int getNumberOfPageWatchers(int pageId){
        String html =  CoreServices.getPageInfoHtml(pageId);
        Document doc = Jsoup.parse(html);
