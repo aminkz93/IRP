@@ -7,6 +7,7 @@ package runner;
 
 import core.CoreServices;
 import core.ProcessInputFiles;
+import core.WorkingSet;
 import features.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +31,30 @@ public class run {
 //        System.out.println(F24.getNumberOfPageWatchers(3649517));
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
-        retainallTest();
+//        retainallTest();
+        CreateOutput out = new CreateOutput(new WorkingSet("2007"));
+//        out.outputF095();
+//        out.outputF096();
+//        out.outputF097();
+//        out.outputF098();
+        out.outputF099();
+//        out.outputF100();
+//        out.outputF101();
+//        out.outputF102();
+//        out.outputF103();
+//        out.outputF104();
+//        out.outputF105();
+//        out.outputF106();
+
+//        WorkingSet ws = new WorkingSet("2007");
+//       System.out.println(ws.getQuery().containsKey("315"));
+//       for(String qid : ws.getQuery().keySet()){
+//           System.out.println(qid + " : ");
+//           for(String ent : ws.getQuery().get(qid)){
+//               System.out.println(ent);
+//           }
+//           System.out.println("--------------------------");
+//       }
 
     }
 

@@ -210,7 +210,7 @@ public class ProcessInputFiles {
             BufferedReader br = new BufferedReader(new FileReader(input));
             String line = null;
             while ((line = br.readLine()) != null) {
-                String qId = line.split(" ")[1];
+                String qId = line.split(" ")[1].substring(4);
                 String docId = line.split(" ")[50];
                 ArrayList<String> docList;
                 if (map.containsKey(qId)) {
