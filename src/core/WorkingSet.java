@@ -16,10 +16,27 @@ import core.ProcessInputFiles;
  */
 public class WorkingSet {
 
-    private HashMap<String, ArrayList<String>> query;// = new HashMap<String, ArrayList<String>>();
+    private HashMap<String, ArrayList<String>> query;
     private HashMap<String, ArrayList<String>> document;
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
     private String workingSetName;
+
+    public HashMap<String, ArrayList<String>> getQueryRelatedDocument() {
+        return queryRelatedDocument;
+    }
+
+    public HashMap<String, ArrayList<String>> getQuery() {
+        return query;
+    }
+
+    public HashMap<String, ArrayList<String>> getDocument() {
+        return document;
+    }
+    
+
+    public String getWorkingSetName() {
+        return workingSetName;
+    }
 
     public int getNumberOfAllExistingDocsInSet() {
         return document.keySet().size();
@@ -42,12 +59,13 @@ public class WorkingSet {
         }
         return count;
     }
+
     /*
     workingSetName IS NAME OF THE SET IN WHICH THE RELEVANT HASHMAPS ARE SOTRED
     THE CONSTRUCTOR TAKES THE workingSetName AND LOAD THE HASHMAP INTO ITS HASHMAPS
     AND IS THEN RETURNED TO CALLER ALONG WITH ALL NEEDED METHODS
     ADDRESS : "./data/2007/serialized/"
-    */
+     */
     public WorkingSet(String workingSetName) {
         this.workingSetName = workingSetName;
         loadFiles(workingSetName);
@@ -70,6 +88,9 @@ public class WorkingSet {
     }
 
     public HashSet<String> ArrayListIntersection(ArrayList<String> qEntities, ArrayList<String> dEntities) {
+        if(qEntities==null || dEntities==null){
+            return new HashSet<String>();
+        }
         HashSet<String> q = new HashSet<>(qEntities);
         HashSet<String> d = new HashSet<>(dEntities);
         q.retainAll(d);
@@ -79,15 +100,20 @@ public class WorkingSet {
     public int getNumberOfDocEntities(String docId) {
         return document.get(docId).size();
     }
+
     /*
     WORKING SET NAME IS 2007 OR 2008
     OR ANY OTHER SET WHICH MAY BE ADDED LATER
-    */
+     */
     private void loadFiles(String workingSetName) {
-        String address = "./data/"+ workingSetName +"/serialized/";
+        System.out.println("Loading Serialized Files " + workingSetName);
+        String address = "./data/" + workingSetName + "/serialized/";
 //        "./data/2007/serialized/2007-queryRelatedDocuments-Hashmap"
-        document = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-documents-Hashmap" );
-        document = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-queries-Hashmap" );
-        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName +"-queryRelatedDocuments-Hashmap" );
+        query = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queries-Hashmap");
+        System.out.println("Loading Query Hashmap Done");
+        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap");
+        System.out.println("Loading queryRelatedDocument Hashmap Done");
+        document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
+        System.out.println("Loading Documents Hashmap Done");
     }
 }

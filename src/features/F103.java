@@ -28,4 +28,16 @@ public class F103 {
         }
         return sum;
     }
+    public String print(String qid) {
+        ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
+        String output = qid + " :\n";
+        double c = workingSet.getNumberOfAllExistingDocsInSet();
+        double result;
+        for (String entity : qEntities) {
+            result = Math.log10(Math.log10(c / ((double) workingSet.getNumberOfDocsContainingEntity(entity))));
+            output += "\t" + entity + " : " + result + "\n";
+        }
+        output += "------------------------------------\n";
+        return output;
+    }
 }

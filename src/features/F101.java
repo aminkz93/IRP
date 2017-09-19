@@ -23,5 +23,10 @@ public class F101 {
     public double execute(String docid) {
         return workingSet.getNumberOfDocEntities(docid);
     }
+    public String print(String docid){
+        String output = docid + " : " +workingSet.getNumberOfDocEntities(docid);
+        output += "------------------------------------\n";
+        return output;
+    }
     
 }
