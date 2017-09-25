@@ -10,6 +10,7 @@ import features.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -221,6 +222,24 @@ public class CreateOutput {
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
 //                System.out.println(docid);
                 fileWriterContinue(f106.print(qid, docid), saveAddress);
+
+            }
+        }
+
+        System.out.println("F106.txt" + " done");
+
+    }
+    public void outputF107() throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F107.txt";
+        F107 f107 = new F107(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+//            System.out.println(qid);
+            f107.execute(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+//                System.out.println(docid);
+                fileWriterContinue(f107.print(qid,docid), saveAddress);
 
             }
         }

@@ -33,11 +33,11 @@ public class run {
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
         CreateOutput out = new CreateOutput(new WorkingSet("2007"));
-//        out.outputF095();
+//       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
 //        out.outputF098();
-        out.outputF099();
+ //       out.outputF099();
 //        out.outputF100();
 //        out.outputF101();
 //        out.outputF102();
@@ -45,6 +45,7 @@ public class run {
 //        out.outputF104();
 //        out.outputF105();
 //        out.outputF106();
+        out.outputF107();
 
 //        WorkingSet ws = new WorkingSet("2007");
 //       System.out.println(ws.getQuery().containsKey("315"));

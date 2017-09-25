@@ -170,7 +170,7 @@ public class ProcessInputFiles {
     CREATES A HASHMAP OF THE DOCUMENTS ENTITIES FROM THE GIVEN FILE
      */
     private static HashMap<String, ArrayList<String>> createDocumentHashMap(File fin) throws IOException {
-        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
         // Construct BufferedReader from FileReader
         BufferedReader br = new BufferedReader(new FileReader(fin));
 
@@ -184,7 +184,7 @@ public class ProcessInputFiles {
             if (map.containsKey(docId)) {
                 entList = map.get(docId);
             } else {
-                entList = new ArrayList<String>();
+                entList = new ArrayList<>();
             }
             for (String temp : ent_conf) {
 //                System.out.println(temp);
@@ -204,7 +204,7 @@ public class ProcessInputFiles {
     QUERY IS THE KEY AND ARRAY LIST OF DOCUMENTS IS THE VALUE OF THE HASHMAP
      */
     private static HashMap<String, ArrayList<String>> createQueryRelatedDocumentHashMap(File[] fin) throws IOException {
-        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
         // Construct BufferedReader from FileReader
         for (File input : fin) {
             BufferedReader br = new BufferedReader(new FileReader(input));
@@ -216,7 +216,7 @@ public class ProcessInputFiles {
                 if (map.containsKey(qId)) {
                     docList = map.get(qId);
                 } else {
-                    docList = new ArrayList<String>();
+                    docList = new ArrayList<>();
                 }
                 docList.add(docId);
                 map.put(qId, docList);
@@ -231,5 +231,8 @@ public class ProcessInputFiles {
         }
         return map;
     }
-
+    private static void indexDocumentHashMap(HashMap<String, ArrayList<String>> documentHashMap , String indexDir) throws IOException, Exception{
+        Indexer indexer = new Indexer(indexDir);
+        indexer.index(documentHashMap);
+    }
 }
