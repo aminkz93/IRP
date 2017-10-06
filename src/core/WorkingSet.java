@@ -21,6 +21,7 @@ public class WorkingSet {
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
     private String indexDirectory;
     private String workingSetName;
+    private String SFileNumber;
 
     public String getIndexDirectory(){
         return indexDirectory;
@@ -70,8 +71,9 @@ public class WorkingSet {
     AND IS THEN RETURNED TO CALLER ALONG WITH ALL NEEDED METHODS
     ADDRESS : "./data/2007/serialized/"
      */
-    public WorkingSet(String workingSetName) {
+    public WorkingSet(String workingSetName, String SFileNumber) {
         this.workingSetName = workingSetName;
+        this.SFileNumber = SFileNumber;
         loadFiles(workingSetName);
     }
 
@@ -116,7 +118,7 @@ public class WorkingSet {
         indexDirectory = "./data/"+ workingSetName +"/index/";
         query = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queries-Hashmap");
         System.out.println("Loading Query Hashmap Done");
-        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap");
+        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap"+this.SFileNumber);
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");

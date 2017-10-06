@@ -33,7 +33,7 @@ public class run {
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
-//        CreateOutput out = new CreateOutput(new WorkingSet("2007"));
+//        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
 //       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
@@ -57,7 +57,7 @@ public class run {
 //           }
 //           System.out.println("--------------------------");
 //       }
-
+            createFiles();
     }
 
     public static void retainallTest() {
