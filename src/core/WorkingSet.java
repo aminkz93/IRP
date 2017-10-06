@@ -23,6 +23,10 @@ public class WorkingSet {
     private String workingSetName;
     private String SFileNumber;
 
+    public String getSFileNumber() {
+        return SFileNumber;
+    }
+    
     public String getIndexDirectory(){
         return indexDirectory;
     }

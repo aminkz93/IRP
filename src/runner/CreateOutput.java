@@ -27,7 +27,7 @@ public class CreateOutput {
     }
 
     public void outputF095() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F95.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F95"+ workingSet.getSFileNumber()+ ".txt";
         F095 f95 = new F095(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -46,7 +46,7 @@ public class CreateOutput {
     }
 
     public void outputF096() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F96.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F96"+ workingSet.getSFileNumber()+ ".txt";
         F096 f96 = new F096(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -64,7 +64,7 @@ public class CreateOutput {
     }
 
     public void outputF097() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F97.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F97"+ workingSet.getSFileNumber()+ ".txt";
         F097 f97 = new F097(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -81,7 +81,7 @@ public class CreateOutput {
     }
 
     public void outputF098() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F98.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F98"+ workingSet.getSFileNumber()+ ".txt";
         F098 f98 = new F098(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -99,7 +99,7 @@ public class CreateOutput {
     }
 
     public void outputF099() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F99.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F99"+ workingSet.getSFileNumber()+ ".txt";
         F099 f99 = new F099(workingSet);
         String output = "";
 //        writeOutputToFile(output, saveAddress);
@@ -117,7 +117,7 @@ public class CreateOutput {
     }
 
     public void outputF100() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F100.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F100"+ workingSet.getSFileNumber()+ ".txt";
         F100 f100 = new F100(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -135,7 +135,7 @@ public class CreateOutput {
     }
 
     public void outputF101() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F101.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F101"+ workingSet.getSFileNumber()+ ".txt";
         F101 f101 = new F101(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -153,7 +153,7 @@ public class CreateOutput {
     }
 
     public void outputF102() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F102.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F102"+ workingSet.getSFileNumber()+ ".txt";
         F102 f102 = new F102(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -167,7 +167,7 @@ public class CreateOutput {
     }
 
     public void outputF103() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F103.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F103"+ workingSet.getSFileNumber()+ ".txt";
         F103 f103 = new F103(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -181,7 +181,7 @@ public class CreateOutput {
     }
 
     public void outputF104() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F104.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F104"+ workingSet.getSFileNumber()+ ".txt";
         F104 f104 = new F104(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -195,7 +195,7 @@ public class CreateOutput {
     }
 
     public void outputF105() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F105.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F105"+ workingSet.getSFileNumber()+ ".txt";
         F105 f105 = new F105(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -213,7 +213,7 @@ public class CreateOutput {
     }
 
     public void outputF106() {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F106.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F106"+ workingSet.getSFileNumber()+ ".txt";
         F106 f106 = new F106(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
@@ -230,7 +230,7 @@ public class CreateOutput {
 
     }
     public void outputF107() throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
-        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F107.txt";
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F107"+ workingSet.getSFileNumber()+ ".txt";
         F107 f107 = new F107(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
