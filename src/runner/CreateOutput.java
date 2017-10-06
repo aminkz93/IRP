@@ -244,7 +244,7 @@ public class CreateOutput {
             }
         }
 
-        System.out.println("F106.txt" + " done");
+        System.out.println("F107.txt" + " done");
 
     }
 

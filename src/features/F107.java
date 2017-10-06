@@ -5,7 +5,7 @@
  */
 package features;
 
-import core.IndexSearcher;
+import core.index.IndexSearcher;
 import core.WorkingSet;
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,20 +23,20 @@ import org.apache.lucene.search.TopDocs;
  */
 public class F107 {
     private WorkingSet workingSet;
-    private IndexSearcher is;
+    private IndexSearcher indexSearcher;
     private HashMap<String , Double> resultsDoc;
     
     public F107(WorkingSet ws) throws IOException{
         workingSet = ws;
-        is = new IndexSearcher(workingSet.getIndexDirectory());
+        indexSearcher = new IndexSearcher(workingSet.getIndexDirectory());
         
     }
     public void execute(String qid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException{
         resultsDoc = new HashMap<>();
         String qEntities = StringUtils.join(workingSet.getQueryEntities(qid), ", ");
-        TopDocs result = is.search(qEntities);
+        TopDocs result = indexSearcher.search(qEntities);
         for (ScoreDoc sc :result.scoreDocs) {
-            Document doc = is.IndexSearcher.doc(sc.doc);
+            Document doc = indexSearcher.IndexSearcher.doc(sc.doc);
             double score = sc.score;
             resultsDoc.put(doc.get("DocId"), score);
         }

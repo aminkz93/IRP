@@ -5,6 +5,7 @@
  */
 package core;
 
+import core.index.Indexer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -230,9 +231,5 @@ public class ProcessInputFiles {
             System.out.println("total number of query-document relation " + total);
         }
         return map;
-    }
-    private static void indexDocumentHashMap(HashMap<String, ArrayList<String>> documentHashMap , String indexDir) throws IOException, Exception{
-        Indexer indexer = new Indexer(indexDir);
-        indexer.index(documentHashMap);
     }
 }
