@@ -8,8 +8,6 @@ package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import core.ProcessInputFiles;
-import java.io.IOException;
 
 
 /**
@@ -23,7 +21,12 @@ public class WorkingSet {
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
     private String indexDirectory;
     private String workingSetName;
+    private String SFileNumber;
 
+    public String getSFileNumber() {
+        return SFileNumber;
+    }
+    
     public String getIndexDirectory(){
         return indexDirectory;
     }
@@ -72,8 +75,9 @@ public class WorkingSet {
     AND IS THEN RETURNED TO CALLER ALONG WITH ALL NEEDED METHODS
     ADDRESS : "./data/2007/serialized/"
      */
-    public WorkingSet(String workingSetName) throws Exception {
+    public WorkingSet(String workingSetName, String SFileNumber) {
         this.workingSetName = workingSetName;
+        this.SFileNumber = SFileNumber;
         loadFiles(workingSetName);
     }
 
@@ -111,19 +115,16 @@ public class WorkingSet {
     WORKING SET NAME IS 2007 OR 2008
     OR ANY OTHER SET WHICH MAY BE ADDED LATER
      */
-    private void loadFiles(String workingSetName) throws IOException, Exception {
+    private void loadFiles(String workingSetName) {
         System.out.println("Loading Serialized Files " + workingSetName);
         String address = "./data/" + workingSetName + "/serialized/";
 //        "./data/2007/serialized/2007-queryRelatedDocuments-Hashmap"
         indexDirectory = "./data/"+ workingSetName +"/index/";
         query = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queries-Hashmap");
         System.out.println("Loading Query Hashmap Done");
-        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap");
+        queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap"+this.SFileNumber);
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");
-//        Indexer indexer = new Indexer(indexDirectory);
-//        indexer.index(document);
-//        indexer.close();
     }
 }

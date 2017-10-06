@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import core.index.DocumentsIndexer;
 
 /**
  *
@@ -32,7 +33,7 @@ public class run {
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007"));
+//        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
 //       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
@@ -45,8 +46,8 @@ public class run {
 //        out.outputF104();
 //        out.outputF105();
 //        out.outputF106();
-        out.outputF107();
-
+//        out.outputF107();
+            
 //        WorkingSet ws = new WorkingSet("2007");
 //       System.out.println(ws.getQuery().containsKey("315"));
 //       for(String qid : ws.getQuery().keySet()){
@@ -56,7 +57,7 @@ public class run {
 //           }
 //           System.out.println("--------------------------");
 //       }
-
+            createFiles();
     }
 
     public static void retainallTest() {
@@ -116,6 +117,13 @@ public class run {
                 System.out.println("key of repeated : " + key);
             }
         }
+    }
+    
+    public static void createFiles(){
+        ProcessInputFiles.documentHashMapCreateAndSaveRunner();
+        ProcessInputFiles.queryHashMapCreateAndSaveRunner();
+        ProcessInputFiles.queryRelatedDocumentHashMapCreateAndSaveRunner();
+        core.index.DocumentsIndexer.documentsIndexerRunner();
     }
 
 }

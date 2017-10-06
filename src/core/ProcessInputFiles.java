@@ -5,6 +5,7 @@
  */
 package core;
 
+import core.index.Indexer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -146,8 +147,20 @@ public class ProcessInputFiles {
     HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
      */
     public static void queryRelatedDocumentHashMapCreateAndSaveRunner() {
-        String[][] letorFiles = {{"./data/2007/letor/S1.txt", "./data/2007/letor/S2.txt", "./data/2007/letor/S3.txt", "./data/2007/letor/S4.txt", "./data/2007/letor/S5.txt"}, {"./data/2008/letor/S1.txt", "./data/2008/letor/S2.txt", "./data/2008/letor/S3.txt", "./data/2008/letor/S4.txt", "./data/2008/letor/S5.txt"}};
-        String[] outputNames = {"2007-queryRelatedDocuments-Hashmap", "2008-queryRelatedDocuments-Hashmap"};
+//        String[][] letorFiles = {{"./data/2007/letor/S1.txt", "./data/2007/letor/S2.txt", "./data/2007/letor/S3.txt", "./data/2007/letor/S4.txt", "./data/2007/letor/S5.txt"}, {"./data/2008/letor/S1.txt", "./data/2008/letor/S2.txt", "./data/2008/letor/S3.txt", "./data/2008/letor/S4.txt", "./data/2008/letor/S5.txt"}};
+//        String[] outputNames = {"2007-queryRelatedDocuments-Hashmap", "2008-queryRelatedDocuments-Hashmap"};
+        String[][] letorFiles = {{"./data/2007/letor/S1.txt"}, {"./data/2007/letor/S2.txt"}, {"./data/2007/letor/S3.txt"}, {"./data/2007/letor/S4.txt"}, {"./data/2007/letor/S5.txt"}, {"./data/2008/letor/S1.txt"}, {"./data/2008/letor/S2.txt"}, {"./data/2008/letor/S3.txt"}, {"./data/2008/letor/S4.txt"}, {"./data/2008/letor/S5.txt"}};
+        String[] outputNames = 
+            {"2007-queryRelatedDocuments-HashmapS1",
+            "2007-queryRelatedDocuments-HashmapS2",
+            "2007-queryRelatedDocuments-HashmapS3",
+            "2007-queryRelatedDocuments-HashmapS4",
+            "2007-queryRelatedDocuments-HashmapS5",
+            "2008-queryRelatedDocuments-HashmapS1",
+            "2008-queryRelatedDocuments-HashmapS2",
+            "2008-queryRelatedDocuments-HashmapS3",
+            "2008-queryRelatedDocuments-HashmapS4",
+            "2008-queryRelatedDocuments-HashmapS5",};
         for (int i = 0; i < letorFiles.length; i++) {
             storeQueryRelatedDocumentHashMap(letorFiles[i], outputNames[i]);
         }
@@ -223,16 +236,12 @@ public class ProcessInputFiles {
             }
             br.close();
             System.out.println(map.keySet().size() + " qid are added in total");
-            int total=0;
-            for(String key : map.keySet()){
+            int total = 0;
+            for (String key : map.keySet()) {
                 total += map.get(key).size();
             }
             System.out.println("total number of query-document relation " + total);
         }
         return map;
-    }
-    private static void indexDocumentHashMap(HashMap<String, ArrayList<String>> documentHashMap , String indexDir) throws IOException, Exception{
-        Indexer indexer = new Indexer(indexDir);
-        indexer.index(documentHashMap);
     }
 }
