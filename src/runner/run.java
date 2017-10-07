@@ -33,12 +33,13 @@ public class run {
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
-//        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-//       out.outputF095();
-//        out.outputF096();
-//        out.outputF097();
-//        out.outputF098();
- //       out.outputF099();
+        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+            
+       out.outputF095();
+        out.outputF096();
+        out.outputF097();
+        out.outputF098();
+//        out.outputF099();
 //        out.outputF100();
 //        out.outputF101();
 //        out.outputF102();
@@ -57,7 +58,7 @@ public class run {
 //           }
 //           System.out.println("--------------------------");
 //       }
-            createFiles();
+//            createFiles();
     }
 
     public static void retainallTest() {
