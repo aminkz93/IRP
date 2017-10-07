@@ -82,11 +82,17 @@ public class WorkingSet {
     }
 
     public ArrayList<String> getQueryEntities(String qId) {
-        return query.get(qId);
+        if(query.get(qId) != null)
+            return query.get(qId);
+        else
+            return new ArrayList<String>();
     }
 
     public ArrayList<String> getDocumentEntities(String docId) {
-        return document.get(docId);
+        if(query.get(docId) != null)
+            return document.get(docId);
+        else
+            return new ArrayList<String>();
     }
 
     public int getEntityFrequencyInDoc(String docId, String entity) {
@@ -108,7 +114,10 @@ public class WorkingSet {
     }
 
     public int getNumberOfDocEntities(String docId) {
-        return document.get(docId).size();
+        if(document.get(docId) != null)
+            return document.get(docId).size();
+        else 
+            return 0;
     }
 
     /*

@@ -26,6 +26,7 @@ public class F105 {
         HashSet<String> intersection = workingSet.ArrayListIntersection(qEntities, dEntities);
         double sum = 0;
         double c = workingSet.getNumberOfAllExistingDocsInSet();
+        
         for (String entity : intersection) {
             double f2 = Math.log10((c / ((double) workingSet.getNumberOfDocsContainingEntity(entity)))+1);
             double f1 = Math.log10(((double) workingSet.getEntityFrequencyInDoc(docid, entity)) / ((double)workingSet.getNumberOfDocEntities(docid)) );

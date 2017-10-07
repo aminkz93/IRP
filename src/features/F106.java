@@ -30,7 +30,7 @@ public class F106 {
         for (String entity : intersection) {
             double f1 = ((double) workingSet.getEntityFrequencyInDoc(docid, entity)) / ((double)workingSet.getNumberOfDocEntities(docid));
             double f2 = (c / ((double) workingSet.getEntityFrequencyInAllDocs(entity)));
-            
+
             sum += Math.log10((f1 * f2) +1);
         }
         return sum;
