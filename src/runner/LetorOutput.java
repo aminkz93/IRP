@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import features.*;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 /**
  *
@@ -97,7 +98,7 @@ public class LetorOutput {
             String resultLine = line.split("#")[0];
             for (int i = 0; i < featureValues.length; i++) {
                 
-                resultLine +=  index++ + ":" + featureValues[i] + " ";
+                resultLine +=  index++ + ":" + new DecimalFormat("#0.000000").format(featureValues[i]) + " ";
             }
             resultLine += "#"+line.split("#")[1];
             resultLine += "\n";
