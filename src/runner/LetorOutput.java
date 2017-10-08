@@ -81,7 +81,7 @@ public class LetorOutput {
     QUERY IS THE KEY AND ARRAY LIST OF DOCUMENTS IS THE VALUE OF THE HASHMAP
      */
     private void run(File fin, int baseFeatureNumber) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
-        String saveAddress = "./output/letor/" + workingSet.getWorkingSetName() + "/s"+ workingSet.getSFileNumber()+ ".txt";
+        String saveAddress = "./output/letor/" + workingSet.getWorkingSetName() + "/new"+ workingSet.getSFileNumber()+ ".txt";
         String output = "";
         writeOutputToFile(output, saveAddress);
         
@@ -97,10 +97,10 @@ public class LetorOutput {
             String resultLine = line.split("#")[0];
             for (int i = 0; i < featureValues.length; i++) {
                 
-                resultLine +=  " " + index++ + ":" + featureValues[i];
+                resultLine +=  index++ + ":" + featureValues[i] + " ";
             }
-            resultLine += " "+line.split("#")[1];
-            resultLine += " \n";
+            resultLine += "#"+line.split("#")[1];
+            resultLine += "\n";
 //            -- line inja mishe daghighan y pair az queryid va docid k feature ha vasatesh gharar migiran
 //            -- y nemoone vase ink substringo inaro bkhay bash kar koni :::  "1 qid:10 1:0.031310 2:0.666667 3:0.500000 4:0.166667 5:0.033206 6:0.000000 7:0.000000 8:0.000000 9:0.000000 10:0.000000 11:0.023327 12:0.641157 13:0.498951 14:0.323153 15:0.026674 16:0.029246 17:0.500000 18:0.222222 19:0.111111 20:0.029398 21:0.689128 22:0.636228 23:0.869764 24:0.716400 25:0.725186 26:0.554961 27:0.695985 28:0.504060 29:0.602946 30:0.679534 31:0.730286 32:0.687414 33:0.529688 34:0.436996 35:0.643739 36:0.372337 37:0.646890 38:0.686107 39:0.823908 40:0.750092 41:0.385426 42:0.923077 43:0.086207 44:0.333333 45:0.448276 46:0.000000 #docid = GX000-24-12369390 inc = 0.600318836372593 prob = 0.416367"
 //            -- inja b line feature haro ezafe kon (az int baseFeatureNumber estefade kon y joori ++ esh kon k age khastim az 95

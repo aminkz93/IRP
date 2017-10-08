@@ -33,9 +33,9 @@ public class run {
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+//        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
         LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
-        letorOutput.createLetorFileWithNewFeatures(46);
+        letorOutput.createLetorFileWithNewFeatures(47);
 //       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
