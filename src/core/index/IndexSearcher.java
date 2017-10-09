@@ -47,37 +47,12 @@ public class IndexSearcher {
         
         QueryParser parser = new QueryParser("contents" ,new StandardAnalyzer());                                 
 	Query query = parser.parse(q);
-        TopDocs hits = IndexSearcher.search(query, 100);
+        TopDocs hits = IndexSearcher.search(query, Integer.MAX_VALUE);
         
         return hits;
         
         
     }
-    
-    public double scoring(String q ) throws org.apache.lucene.queryparser.classic.ParseException, IOException{
-        
-        
-        QueryParser parser = new QueryParser("contents" ,new StandardAnalyzer());                                 
-	Query query = parser.parse(q);
-        TopDocs hits = IndexSearcher.search(query, 100);
-        for (ScoreDoc result : IndexSearcher.search(query, Integer.MAX_VALUE).scoreDocs) {
-            System.out.println(result.doc + "\t" + result.score);
-        }
-        return 0 ;
-        
-        
-    }
-    
-    
-    public void searchQueries(String queryDirectory, String directoryIndex) throws FileNotFoundException, IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException{
-        BufferedReader br = new BufferedReader(new FileReader(queryDirectory));
-        StringBuilder sb = new StringBuilder();
-        String line ; 
-        Writer writer = null;
-        
-        
-    }
-    
     
     
     public void close() throws IOException{

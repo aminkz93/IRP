@@ -5,13 +5,11 @@
  */
 package features;
 
-import core.index.IndexSearcher;
 import core.WorkingSet;
+import core.index.IndexSearcher;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
@@ -21,13 +19,13 @@ import org.apache.lucene.search.TopDocs;
  *
  * @author Parastoo
  */
-public class F107 {
-
+public class F108 {
+    
     private WorkingSet workingSet;
     private IndexSearcher indexSearcher;
     private HashMap<String, Double> resultsDoc;
 
-    public F107(WorkingSet ws) throws IOException {
+    public F108(WorkingSet ws) throws IOException {
         workingSet = ws;
         indexSearcher = new IndexSearcher(workingSet.getIndexDirectory());
 
@@ -51,7 +49,7 @@ public class F107 {
         
             execute(qid);
             if (resultsDoc.containsKey(docid)) 
-                return resultsDoc.get(docid);
+                return Math.log10(resultsDoc.get(docid));
             else 
                 return 0;
             
@@ -63,7 +61,7 @@ public class F107 {
         double result;
 
         if (resultsDoc.containsKey(docid)) {
-            result = resultsDoc.get(docid);
+            result = Math.log10(resultsDoc.get(docid));
         } else {
             result = 0;
         }
@@ -73,14 +71,4 @@ public class F107 {
         output += "------------------------------------\n";
         return output;
     }
-
-//    private ArrayList<String> intersection(ArrayList<String> qEntities, ArrayList<String> dEntities){
-//        ArrayList<String> output =  new ArrayList<>();
-//        for(String s : qEntities){
-//            if(dEntities.contains(s)){
-//                output.add(s);
-//            }
-//        }
-//        return output;
-//    }
 }

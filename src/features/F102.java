@@ -24,9 +24,11 @@ public class F102 {
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
         double sum = 0;
         double c = workingSet.getNumberOfAllExistingDocsInSet();
-        for (String entity : qEntities) {
-            sum += Math.log10(c / ((double) workingSet.getNumberOfDocsContainingEntity(entity)));
-        }
+        //if(qEntities != null){
+            for (String entity : qEntities) {
+                sum += Math.log10(c / ((double) workingSet.getNumberOfDocsContainingEntity(entity)));
+            }
+        //}
         return sum;
     }
     public String print(String qid) {
