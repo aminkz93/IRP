@@ -33,7 +33,7 @@ public class F108 {
 
     public void execute(String qid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
         resultsDoc = new HashMap<>();
-        if (workingSet.getQueryEntities(qid) != null) {
+        if (!workingSet.getQueryEntities(qid).isEmpty()) {
             String qEntities = StringUtils.join(workingSet.getQueryEntities(qid), ", ");
             TopDocs result = indexSearcher.search(qEntities);
             for (ScoreDoc sc : result.scoreDocs) {
