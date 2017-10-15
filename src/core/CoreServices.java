@@ -99,13 +99,35 @@ public class CoreServices {
                 .getAsJsonObject("query")
                 .getAsJsonObject("pages")
                 .getAsJsonObject(String.valueOf(pageId));
-
-        return jRoot.get(fieldName).toString();
+        if(jRoot.get(fieldName) != null)
+            return jRoot.get(fieldName).toString();
+        else 
+            return null ;
 
     }
 
     public static String getTitle(int pageId){
         return getJsonFieldValue(getJsonById(pageId),"title",pageId);
+    }
+    
+    public static String getSparqlTitle(int pageId){
+        String title = getTitle(pageId);
+        if(title != null){
+            title = title.replace(" ", "_");
+            title = title.replace("'", "");
+            title = title.replace(",", "_");
+            title = title.replace("(", "_");
+            title = title.replace(")", "_");
+            title = title.replace("[", "_");
+            title = title.replace("]", "_");
+            title = title.replace("/", "_");
+            title = title.replace("\\", "_");
+            
+            return title.substring(1,title.length()-1);
+        }
+        else{
+            return null;
+        }
     }
     public static String getLength(int pageId){
         return getJsonFieldValue(getJsonById(pageId),"length",pageId);
