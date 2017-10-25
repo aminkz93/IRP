@@ -89,7 +89,7 @@ public class WorkingSet {
     }
 
     public ArrayList<String> getDocumentEntities(String docId) {
-        if(query.get(docId) != null)
+        if(document.get(docId) != null)
             return document.get(docId);
         else
             return new ArrayList<String>();

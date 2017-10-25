@@ -34,8 +34,8 @@ public class run {
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
 //        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
-        letorOutput.createLetorFileWithNewFeatures(47);
+//        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
+//        letorOutput.createLetorFileWithNewFeatures(47);
 //       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
@@ -49,7 +49,8 @@ public class run {
 //        out.outputF105();
 //        out.outputF106();
 //        out.outputF107();
-            
+            QentityDentity ee = new QentityDentity(new WorkingSet("2008","S1"));
+            ee.createEntityEntityPairFile();
 //        WorkingSet ws = new WorkingSet("2007");
 //       System.out.println(ws.getQuery().containsKey("315"));
 //       for(String qid : ws.getQuery().keySet()){
