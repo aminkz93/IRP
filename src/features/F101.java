@@ -25,7 +25,7 @@ public class F101 {
     }
     public String print(String docid){
         String output = docid + " : " +workingSet.getNumberOfDocEntities(docid);
-        output += "------------------------------------\n";
+//        output += "------------------------------------\n";
         return output;
     }
     

@@ -37,13 +37,13 @@ public class F096 {
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
         ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
         HashSet<String> intersection = workingSet.ArrayListIntersection(qEntities, dEntities);
-        String output = qid + " _ " + docid + " :\n";
+        String output = "";//qid + " _ " + docid + " :\n";
         double result;
         for (String entity : intersection) {
             result = Math.log10(workingSet.getEntityFrequencyInDoc(docid, entity) + 1);
-            output += "\t" + entity + " : " + result + "\n";
+            output += entity + "-" + entity + " "+ result + "\n";
         }
-        output += "------------------------------------\n";
+//        output += "------------------------------------\n";
         return output;
     }
 }

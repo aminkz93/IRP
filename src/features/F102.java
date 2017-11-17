@@ -40,7 +40,7 @@ public class F102 {
             result = Math.log10(c / ((double) workingSet.getNumberOfDocsContainingEntity(entity)));
             output += "\t" + entity + " : " + result + "\n";
         }
-        output += "------------------------------------\n";
+//        output += "------------------------------------\n";
         return output;
     }
 }

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import core.index.DocumentsIndexer;
+import java.util.List;
 
 /**
  *
@@ -36,7 +37,17 @@ public class run {
         CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
 //        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
 //        letorOutput.createLetorFileWithNewFeatures(47);
-       out.outputF078();
+//        F003 f = new F003();
+//        List<Integer> l = new ArrayList<>();
+//        l.add(9888963);
+//        l.add(1522020);
+//        l.add(33898);
+//        l.add(23223308);
+//        l.add(21076839);
+//        l.add(524024);
+      //  f.getCategoriesSimilarity(6251,l);
+//        System.out.println( F003.getCategoriesSimilarity(6251,l));
+//           out.outputF078();
 //        out.outputF096();
 //        out.outputF097();
 //        out.outputF098();

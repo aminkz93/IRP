@@ -5,9 +5,14 @@
  */
 package core;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -75,10 +80,11 @@ public class WorkingSet {
     AND IS THEN RETURNED TO CALLER ALONG WITH ALL NEEDED METHODS
     ADDRESS : "./data/2007/serialized/"
      */
-    public WorkingSet(String workingSetName, String SFileNumber) {
+    public WorkingSet(String workingSetName, String SFileNumber) throws FileNotFoundException, UnsupportedEncodingException {
         this.workingSetName = workingSetName;
         this.SFileNumber = SFileNumber;
         loadFiles(workingSetName);
+        writeDocHashMapToFile();
     }
 
     public ArrayList<String> getQueryEntities(String qId) {
@@ -89,7 +95,7 @@ public class WorkingSet {
     }
 
     public ArrayList<String> getDocumentEntities(String docId) {
-        if(query.get(docId) != null)
+        if(document.get(docId) != null)
             return document.get(docId);
         else
             return new ArrayList<String>();
@@ -135,5 +141,17 @@ public class WorkingSet {
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");
+    }
+
+    private void writeDocHashMapToFile() throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter("the-file-name-queryrelated.txt", "UTF-8");
+        Iterator it = queryRelatedDocument.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            String data = (String) pair.getKey()+": ";
+            data += String.join(",", queryRelatedDocument.get(pair.getKey()));
+            writer.println(data);
+        }
+        writer.close();
     }
 }

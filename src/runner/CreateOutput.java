@@ -25,6 +25,26 @@ public class CreateOutput {
     public CreateOutput(WorkingSet workingSet) {
         this.workingSet = workingSet;
     }
+    
+    public void outputF003() {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F03"+ workingSet.getSFileNumber()+ ".txt";
+        F003 f03 = new F003(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+//            System.out.println(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+//                System.out.println(docid);
+//                System.out.println(f95.print(qid, docid));
+                fileWriterContinue(f03.print(qid, docid), saveAddress);
+//                output += f95.print(qid, docid);
+
+            }
+        }
+//        writeOutputToFile(output,saveAddress);
+        System.out.println("F03.txt" + " done");
+    }
+    
     public void outputF078() throws Exception {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F78"+ workingSet.getSFileNumber() +".txt";
         F078 f78 = new F078(workingSet);

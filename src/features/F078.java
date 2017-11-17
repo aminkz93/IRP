@@ -24,15 +24,15 @@ public class F078 {
     public static String executeQuery(String qEntity) throws Exception {  
         
         String count = null ;
-        if(core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)) != null){
+        //if(core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)) != null){
 //            String entityTitle = core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)); 
 //            entityTitle = entityTitle.replace("'", "");
             String query ="PREFIX dbr: <http://dbpedia.org/resource/> " +
                            "PREFIX dbo: <http://dbpedia.org/ontology/> " +
-                           "SELECT (count(distinct ?y) as ?count) " +
-                           "WHERE {dbr:" +
-                           core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)) +
-                           "?predicate ?y .}";
+                           "SELECT (count(?object) as ?count) " +
+                           "WHERE { ?subject ?predicate ?object. ?subject dbo:wikiPageID "+
+                           qEntity +
+                           ".}";
             ResultSet results = core.CoreServices.executeSparqlQuery(query);
             while (results.hasNext()) {
                 QuerySolution soln = results.next();
@@ -42,7 +42,7 @@ public class F078 {
                 System.out.println(count);
 
             }
-        }
+        //}
 
         return count;
     }

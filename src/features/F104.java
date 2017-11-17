@@ -39,7 +39,7 @@ public class F104 {
             result = Math.log10((c / ((double) workingSet.getEntityFrequencyInAllDocs(entity))) + 1);
             output += "\t" + entity + " : " + result + "\n";
         }
-        output += "------------------------------------\n";
+//        output += "------------------------------------\n";
         return output;
     }
 

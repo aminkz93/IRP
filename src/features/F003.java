@@ -2,7 +2,9 @@
 package features;
 
 import core.CoreServices;
+import core.WorkingSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -12,7 +14,11 @@ import java.util.List;
  */
 public class F003 {
 
-
+    private WorkingSet workingSet;
+    
+    public F003(WorkingSet ws){
+        workingSet = ws;
+    }
     private static float compareCategories(String[] queryCategories, String[] docCategories) {
         float result = 0;
         for(String q : queryCategories){
@@ -24,20 +30,38 @@ public class F003 {
         return result / (float)Math.max(queryCategories.length, docCategories.length);
     }
 
-    public static float getCategoriesSimilarity(int queryId, List<Integer> docsId) {
+    public static float getCategoriesSimilarity(String qId, String docId) {
         float matchedCategories = 0;
-        List<String[]> docsCategories = new ArrayList<String[]>();
-        String[] queryCategories = CoreServices.getPageCategory(queryId);
-        for(int docId : docsId){
-            String[] docCategories = CoreServices.getPageCategory(docId);
-            docsCategories.add(docCategories);
+//        List<String[]> docsCategories = new ArrayList<String[]>();
+        String[] queryCategories = CoreServices.getPageCategory(Integer.parseInt(qId));
+        
+        String[] docCategories = CoreServices.getPageCategory(Integer.parseInt(docId));
+//        docsCategories.add(docCategories);
+        
+        
+//        for (String[] item : docsCategories) {
+            System.out.println(F003.compareCategories(queryCategories , docCategories));
+            matchedCategories += F003.compareCategories(queryCategories , docCategories);
+//        }
+        
+        return matchedCategories / (float)docCategories.length + queryCategories.length -matchedCategories;
+        
+    }
+    
+    public String print(String qid,String docid){
+        ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
+        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
+//        String output = qid + " _ " + docid + " :\n";
+        String output = "";
+        double result;
+        for(String q : qEntities){
+            for(String d : dEntities ){
+                result = getCategoriesSimilarity(q, d);
+//                output+= "\t" + q + " : " + result + "\n";
+                output+= q + "-"+ d +" " + result + "\n";
+            }
         }
-        
-        for (String[] item : docsCategories) {
-            matchedCategories += F003.compareCategories(queryCategories , item);
-        }
-        
-        return matchedCategories / (float)docsCategories.size();
-        
+//        output += "------------------------------------\n";
+        return output;
     }
 }

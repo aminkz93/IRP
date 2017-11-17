@@ -39,7 +39,7 @@ public class F106 {
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
         ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
         HashSet<String> intersection = workingSet.ArrayListIntersection(qEntities, dEntities);
-        String output = qid + " _ " + docid + " :\n";
+        String output = ""; //qid + " _ " + docid + " :\n";
         double c = workingSet.getNumberOfAllExistingDocsInSet();
         double result;
         for(String entity : intersection){
@@ -47,9 +47,9 @@ public class F106 {
             double f2 = (c / ((double) workingSet.getEntityFrequencyInAllDocs(entity)));
             
             result = Math.log10((f1 * f2) +1);
-            output+= "\t" + entity + " : " + result + "\n";
+            output+= entity + "-" + entity + " " + result + "\n";
         }
-        output += "------------------------------------\n";
+//        output += "------------------------------------\n";
         return output;
     }
     
