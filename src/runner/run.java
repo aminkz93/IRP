@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import core.index.DocumentsIndexer;
+import core.index.Stemmer;
 import java.util.List;
 
 /**
@@ -34,7 +35,9 @@ public class run {
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
+        
         CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+        
 //        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
 //        letorOutput.createLetorFileWithNewFeatures(47);
 //        F003 f = new F003();

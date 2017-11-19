@@ -48,11 +48,42 @@ public class ProcessInputFiles {
         br.close();
         return map;
     }
+    
+    private static HashMap<String, ArrayList<String>> createQueryTopicHashMap(File fin) throws IOException {
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(":");
+
+            String[] entities = lineSplit[1].substring(1).split(",");
+            ArrayList<String> entList = new ArrayList<String>();
+
+            entList.addAll(Arrays.asList(entities));
+            map.put(lineSplit[0], entList);
+        }
+
+        br.close();
+        return map;
+    }
 
     private static void storeQueryHashMap(String queryFile, String outputName) {
         try {
             HashMap<String, ArrayList<String>> map = createQueryHashMap(new File(queryFile));
             String saveAddress = queryFile.substring(0, 11) + "/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storeQueryTopicHashMap(String queryTopicFile, String outputName) {
+        try {
+            HashMap<String, ArrayList<String>> map = createQueryTopicHashMap(new File(queryTopicFile));
+            String saveAddress = queryTopicFile.substring(0, 11) + "/serialized/" + outputName;
             serializeHashMap(map, saveAddress);
         } catch (IOException ex) {
             Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,6 +166,19 @@ public class ProcessInputFiles {
         String[] outputNames = {"2007-queries-Hashmap", "2008-queries-Hashmap"};
         for (int i = 0; i < queryFiles.length; i++) {
             storeQueryHashMap(queryFiles[i], outputNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD QUERYTOPIC FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void queryTopicHashMapCreateAndSaveRunner() {
+        String[] queryTopicFiles = {"./data/2007/2007.topics", "./data/2008/2008.topics"};
+        String[] outputTopicNames = {"2007-queriesTopic-Hashmap", "2008-queriesTopic-Hashmap"};
+        for (int i = 0; i < queryTopicFiles.length; i++) {
+            storeQueryTopicHashMap(queryTopicFiles[i], outputTopicNames[i]);
         }
     }
 
