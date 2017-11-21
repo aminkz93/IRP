@@ -48,7 +48,7 @@ public class F081 {
     }
     public String print(String qid) throws Exception {
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-        String output = qid +" :\n";
+        String output = "";//qid +" :\n";
         String result;
         for (String entity : qEntities) {
             result = executeQuery(entity);

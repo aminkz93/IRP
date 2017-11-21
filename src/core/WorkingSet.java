@@ -24,6 +24,7 @@ public class WorkingSet {
     private HashMap<String, ArrayList<String>> query;
     private HashMap<String, ArrayList<String>> document;
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
+    private HashMap<String, String> queryTopic;
     private String indexDirectory;
     private String workingSetName;
     private String SFileNumber;
@@ -35,6 +36,11 @@ public class WorkingSet {
     public String getIndexDirectory(){
         return indexDirectory;
     }
+    
+    public HashMap<String,String> getQueryTopic() {
+        return queryTopic;
+    }
+    
     public HashMap<String, ArrayList<String>> getQueryRelatedDocument() {
         return queryRelatedDocument;
     }
@@ -141,6 +147,8 @@ public class WorkingSet {
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");
+        queryTopic = ProcessInputFiles.deserializeHashMapQueryTopic(address + workingSetName + "-queriesTopic-Hashmap");
+        System.out.println("Loading queriesTopic Hashmap Done");
     }
 
     private void writeDocHashMapToFile() throws FileNotFoundException, UnsupportedEncodingException {

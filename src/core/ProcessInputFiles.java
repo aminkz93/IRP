@@ -49,8 +49,8 @@ public class ProcessInputFiles {
         return map;
     }
     
-    private static HashMap<String, ArrayList<String>> createQueryTopicHashMap(File fin) throws IOException {
-        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+    private static HashMap<String, String> createQueryTopicHashMap(File fin) throws IOException {
+        HashMap<String, String> map = new HashMap<>();
         // Construct BufferedReader from FileReader
         BufferedReader br = new BufferedReader(new FileReader(fin));
 
@@ -58,11 +58,9 @@ public class ProcessInputFiles {
         while ((line = br.readLine()) != null) {
             String[] lineSplit = line.split(":");
 
-            String[] entities = lineSplit[1].substring(1).split(",");
-            ArrayList<String> entList = new ArrayList<String>();
+            String topic = lineSplit[1].substring(1);
 
-            entList.addAll(Arrays.asList(entities));
-            map.put(lineSplit[0], entList);
+            map.put(lineSplit[0], topic);
         }
 
         br.close();
@@ -82,9 +80,9 @@ public class ProcessInputFiles {
     
     private static void storeQueryTopicHashMap(String queryTopicFile, String outputName) {
         try {
-            HashMap<String, ArrayList<String>> map = createQueryTopicHashMap(new File(queryTopicFile));
+            HashMap<String, String> map = createQueryTopicHashMap(new File(queryTopicFile));
             String saveAddress = queryTopicFile.substring(0, 11) + "/serialized/" + outputName;
-            serializeHashMap(map, saveAddress);
+            serializeHashMapQueryTopic(map, saveAddress);
         } catch (IOException ex) {
             Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,6 +131,23 @@ public class ProcessInputFiles {
             i.printStackTrace();
         }
     }
+    
+    /*
+    This method takes a hashmap and saves it to the given address 
+    the file Extention is .ser which is automatically added to the file
+     */
+    private static void serializeHashMapQueryTopic(HashMap<String,String> map, String address) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(address + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(map);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in" + address + ".ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
 
     /*
     deserializing the hashmap from the given address and return it to the caller
@@ -144,6 +159,28 @@ public class ProcessInputFiles {
             FileInputStream fileIn = new FileInputStream(address + ".ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             map = (HashMap<String, ArrayList<String>>) in.readObject();
+            in.close();
+            fileIn.close();
+            return map;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            c.printStackTrace();
+            return null;
+        }
+    }
+    
+    /*
+    deserializing the hashmap from the given address and return it to the caller
+    if object is not of the type Hashmap then exception will be raised
+     */
+    public static HashMap<String, String> deserializeHashMapQueryTopic(String address) {
+        try {
+            HashMap<String,String> map;
+            FileInputStream fileIn = new FileInputStream(address + ".ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            map = (HashMap<String, String>) in.readObject();
             in.close();
             fileIn.close();
             return map;

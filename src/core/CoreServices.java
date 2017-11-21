@@ -132,20 +132,25 @@ public class CoreServices {
     public static String getLength(int pageId){
         return getJsonFieldValue(getJsonById(pageId),"length",pageId);
     }
-    
+    /*
+        this method get all categories of entity 
+     */
     public static String[] getPageCategory(int pageId){
-        String[] categories  = null;
-        String title = getTitle(pageId);
-        String[] words = title.split(" ");
-        StringBuffer sb = new StringBuffer();
-        for(String word : words){
-            sb.append(word);
-            sb.append("_");
-        }
-        String pageName=sb.substring(1,sb.length()-2);
-        String url = "https://en.wikipedia.org/w/api.php?action=query&titles=" + pageName + "&prop=categories&format=json";
-
         try {
+            String[] categories  = null;
+            String[] words = null;
+            String title = getTitle(pageId);
+            if(title != null){
+             words = title.split(" ");}
+            StringBuffer sb = new StringBuffer();
+            for(String word : words){
+                sb.append(word);
+                sb.append("_");
+            }
+            String pageName=sb.substring(1,sb.length()-2);
+            String url = "https://en.wikipedia.org/w/api.php?action=query&titles=" + pageName + "&prop=categories&format=json";
+
+        
             String jsonCategory = Jsoup.connect(url).ignoreContentType(true).execute().body();
             JsonElement jsonElement= new JsonParser().parse(jsonCategory);
             JsonObject jRoot = jsonElement.getAsJsonObject()
@@ -164,7 +169,7 @@ public class CoreServices {
             
             return categories;
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
 

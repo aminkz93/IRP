@@ -45,6 +45,25 @@ public class CreateOutput {
         System.out.println("F03.txt" + " done");
     }
     
+    public void outputF111() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F111"+ workingSet.getSFileNumber()+ ".txt";
+        F111 f111 = new F111(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+//            System.out.println(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+//                System.out.println(docid);
+//                System.out.println(f95.print(qid, docid));
+                fileWriterContinue(f111.print(qid, docid), saveAddress);
+//                output += f95.print(qid, docid);
+
+            }
+        }
+//        writeOutputToFile(output,saveAddress);
+        System.out.println("F111.txt" + " done");
+    }
+    
     public void outputF078() throws Exception {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F78"+ workingSet.getSFileNumber() +".txt";
         F078 f78 = new F078(workingSet);
@@ -290,6 +309,24 @@ public class CreateOutput {
         System.out.println("F107.txt" + " done");
 
     }
+    public void outputF108() throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F108"+ workingSet.getSFileNumber()+ ".txt";
+        F108 f108 = new F108(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+//            System.out.println(qid);
+            f108.execute(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+//                System.out.println(docid);
+                fileWriterContinue(f108.print(qid,docid), saveAddress);
+
+            }
+        }
+
+        System.out.println("F108.txt" + " done");
+
+    }
 
     private void writeOutputToFile(String content, String fileName) {
         BufferedWriter writer = null;
@@ -324,5 +361,7 @@ public class CreateOutput {
             }
         }
     }
+
+    
 
 }
