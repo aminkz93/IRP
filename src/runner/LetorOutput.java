@@ -110,6 +110,10 @@ public class LetorOutput {
 //            System.out.println("line :"+ lineCount);
             int index = baseFeatureNumber;
             String qId = line.split(" ")[1].substring(4);
+            
+            if(workingSet.getQueryEntities(qId).size() == 0)
+                continue;
+            
             String docId = line.split(" ")[50];
             
             runFeatures(qId, docId);
