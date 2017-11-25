@@ -44,34 +44,33 @@ public class F112 {
             Literal countLiteral = ((Literal) soln.get("abstract"));
             if(countLiteral != null)
                 wikiAbstract = countLiteral.getString();
-            System.out.println(wikiAbstract);
 
         }
-        String CommentQuery ="PREFIX dbr: <http://dbpedia.org/resource/>\n" +
-                        "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
-                        "\n" +
-                        "\n" +
-                        "SELECT ?comment\n" +
-                        "WHERE {?subject rdfs:comment ?comment .\n" +
-                        "       ?subject dbo:wikiPageID "+
-                        qEntity+
-                        ".\n" +
-                        "       FILTER langMatches(lang(?comment),'en') \n" +
-                        "\n" +
-                        "}";
-        results = core.CoreServices.executeSparqlQuery(AbstractQuery);
-        while (results.hasNext()) {
-            QuerySolution soln = results.next();
-
-            Literal countLiteral = ((Literal) soln.get("comment"));
-            if(countLiteral != null)
-                wikiComment = countLiteral.getString();
-            System.out.println(wikiComment);
-
-        }
+//        String CommentQuery ="PREFIX dbr: <http://dbpedia.org/resource/>\n" +
+//                        "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
+//                        "\n" +
+//                        "\n" +
+//                        "SELECT ?comment\n" +
+//                        "WHERE {?subject rdfs:comment ?comment .\n" +
+//                        "       ?subject dbo:wikiPageID "+
+//                        qEntity+
+//                        ".\n" +
+//                        "       FILTER langMatches(lang(?comment),'en') \n" +
+//                        "\n" +
+//                        "}";
+//        results = core.CoreServices.executeSparqlQuery(AbstractQuery);
+//        while (results.hasNext()) {
+//            QuerySolution soln = results.next();
+//
+//            Literal countLiteral = ((Literal) soln.get("comment"));
+//            if(countLiteral != null)
+//                wikiComment = countLiteral.getString();
+//            System.out.println(wikiComment);
+//
+//        }
         //}
 
-        return wikiAbstract + " " +wikiComment;
+        return wikiAbstract ; //+ " " +wikiComment;
     }
     public String print(String qid, String docid) throws Exception {
         if(workingSet.getQueryTopic().containsKey(qid)){
@@ -95,7 +94,7 @@ public class F112 {
                 }
                 
                 for(String qentity :qEntity){
-                    output += qentity + "-" + dentity + result + "\n";
+                    output += qentity + "-" + dentity +" "+ result + "\n";
                 }
             }
             return output;

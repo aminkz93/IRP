@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.jena.tdb.store.Hash;
 
 /**
  *
@@ -52,13 +51,15 @@ public class WikiPediaRanker {
             Map.Entry pair = (Map.Entry)it.next();
             String key = (String) pair.getKey();
             Map<String, Integer> termFrequency = (Map<String , Integer>) pair.getValue();
-            Iterator it2 = termFrequencies.entrySet().iterator();
-            for (int i = 0; i < 10; i++) {
-                if(invertedDocFrequency.containsKey(key)){
-                    invertedDocFrequency.put(key, invertedDocFrequency.get(key)+1);
+            Iterator it2 = termFrequency.entrySet().iterator();
+            while (it2.hasNext()) {
+                Map.Entry pair2 = (Map.Entry)it2.next();
+                String key2 = (String) pair2.getKey();
+                if(invertedDocFrequency.containsKey(key2)){
+                    invertedDocFrequency.put(key2, invertedDocFrequency.get(key2)+1);
                 }
                 else
-                    invertedDocFrequency.put(key,1);
+                    invertedDocFrequency.put(key2,1);
             }
             
         }
@@ -67,9 +68,13 @@ public class WikiPediaRanker {
     }
     
     public  int search( String queryToken, String docEntity ){
-        if(termFrequencies.get(docEntity).containsKey(queryToken))
-             return termFrequencies.get(docEntity).get(queryToken);
-        else 
+        if(termFrequencies.containsKey(docEntity)){
+            if(termFrequencies.get(docEntity).containsKey(queryToken))
+                 return termFrequencies.get(docEntity).get(queryToken);
+            else 
+                return 0;
+        }
+        else
             return 0;
     }
     
@@ -77,11 +82,15 @@ public class WikiPediaRanker {
         float result = 0;
         float tf =0;
         float idf = 0;
-        if(termFrequencies.get(termFrequencies).containsKey(token))
-            tf = (float) Math.log(termFrequencies.get(termFrequencies).get(token));
-        if(invertedDocFrequency.containsKey(token))
-            idf = (float) Math.log(termFrequencies.size()/(float)invertedDocFrequency.get(token));
-        return tf*idf;
+        if(termFrequencies.containsKey(docEntity)){
+            if(termFrequencies.get(docEntity).containsKey(token))
+                tf = (float) (1+ Math.log(termFrequencies.get(docEntity).get(token)));
+            if(invertedDocFrequency.containsKey(token))
+                idf = (float) Math.log(termFrequencies.size()/(float)invertedDocFrequency.get(token));
+            return tf*idf;
+        }
+        else
+            return 0;
     }
     
    

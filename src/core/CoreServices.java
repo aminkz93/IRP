@@ -38,7 +38,7 @@ public class CoreServices {
             json = Jsoup.connect(url).ignoreContentType(true).execute().body();
             
         } catch (IOException ex) {
-            Logger.getLogger(CoreServices.class.getName()).log(Level.SEVERE, null, ex);
+            
             json = null;
         }
         return json;
@@ -93,7 +93,7 @@ public class CoreServices {
     }
     
     private static String getJsonFieldValue(String json, String fieldName, int pageId){
-
+        try{
         JsonElement jsonElement= new JsonParser().parse(json);
         JsonObject jRoot = jsonElement.getAsJsonObject()
                 .getAsJsonObject("query")
@@ -103,11 +103,20 @@ public class CoreServices {
             return jRoot.get(fieldName).toString();
         else 
             return null ;
+        }
+        catch(Exception ex){
+            return null;
+        }
 
     }
 
     public static String getTitle(int pageId){
-        return getJsonFieldValue(getJsonById(pageId),"title",pageId);
+        try {
+            return getJsonFieldValue(getJsonById(pageId),"title",pageId);
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
     
     public static String getSparqlTitle(int pageId){

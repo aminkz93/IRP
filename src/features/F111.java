@@ -97,7 +97,7 @@ public class F111 {
                     result += wi.search(queryToken,dentity);
 
                 for(String qentity :qEntity){
-                    output += qentity + "-" + dentity + result + "\n";
+                    output += qentity + "-" + dentity + " "+result + "\n";
                 }
             }
             

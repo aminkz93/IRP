@@ -175,7 +175,7 @@ public class ProcessInputFiles {
     deserializing the hashmap from the given address and return it to the caller
     if object is not of the type Hashmap then exception will be raised
      */
-    public static HashMap<String, String> deserializeHashMapQueryTopic(String address) {
+    public static HashMap<String, String> deserializeHashMapStringString(String address) {
         try {
             HashMap<String,String> map;
             FileInputStream fileIn = new FileInputStream(address + ".ser");

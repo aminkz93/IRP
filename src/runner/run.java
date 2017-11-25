@@ -15,10 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import core.index.DocumentsIndexer;
-import core.index.Stemmer;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 /**
  *
@@ -30,31 +26,17 @@ public class run {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        test1();
-        test2();
-//        CoreServices core = new CoreServices();
+        CoreServices core = new CoreServices();
 //        System.out.print(F23.getPageLegth(14653));
 ////        System.out.println(core.getPageInfoHtml(3649517));
 //        System.out.println(F24.getNumberOfPageWatchers(3649517));
 //        System.out.println(core.parseInt("123,234"));
 //        CoreServices.getNumberOfSearchResult("link");
 //        retainallTest();
-        
 //        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-        
 //        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
 //        letorOutput.createLetorFileWithNewFeatures(47);
-//        F003 f = new F003();
-//        List<Integer> l = new ArrayList<>();
-//        l.add(9888963);
-//        l.add(1522020);
-//        l.add(33898);
-//        l.add(23223308);
-//        l.add(21076839);
-//        l.add(524024);
-      //  f.getCategoriesSimilarity(6251,l);
-//        System.out.println( F003.getCategoriesSimilarity(6251,l));
-//           out.outputF078();
+//       out.outputF095();
 //        out.outputF096();
 //        out.outputF097();
 //        out.outputF098();
@@ -67,7 +49,8 @@ public class run {
 //        out.outputF105();
 //        out.outputF106();
 //        out.outputF107();
-            
+//            QentityDentity ee = new QentityDentity(new WorkingSet("2008","S1"));
+//            ee.createEntityEntityPairFile();
 //        WorkingSet ws = new WorkingSet("2007");
 //       System.out.println(ws.getQuery().containsKey("315"));
 //       for(String qid : ws.getQuery().keySet()){
@@ -80,199 +63,6 @@ public class run {
 //            createFiles();
     }
 
-    public static void test1() throws FileNotFoundException, UnsupportedEncodingException, Exception{
-//        ProcessInputFiles.queryTopicHashMapCreateAndSaveRunner();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-//        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2007","S1"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2007","S2"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2007","S3"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2007","S4"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2007","S5"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2008","S1"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2008","S2"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2008","S3"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2008","S4"));
-        out.outputF003();
-        out.outputF111();
-        out = new CreateOutput(new WorkingSet("2008","S5"));
-        out.outputF003();
-        out.outputF111();
-        
-    }
-    public static void test2() throws FileNotFoundException, UnsupportedEncodingException, Exception{
-        ProcessInputFiles.queryTopicHashMapCreateAndSaveRunner();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        
-        out = new CreateOutput(new WorkingSet("2007","S2"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2007","S3"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2007","S4"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2007","S5"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2008","S1"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2008","S2"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2008","S3"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2008","S4"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        out = new CreateOutput(new WorkingSet("2008","S5"));
-        out.outputF095();
-        out.outputF096();
-        out.outputF097();
-        out.outputF098();
-        out.outputF099();
-        out.outputF100();
-        out.outputF101();
-        out.outputF102();
-        out.outputF103();
-        out.outputF104();
-        out.outputF105();
-        out.outputF106();
-        out.outputF107();
-        out.outputF108();
-        
-        
-    }
     public static void retainallTest() {
         //        String[] qu = {"ios", "what", "android", "apple"};
 //
@@ -333,10 +123,9 @@ public class run {
     }
     
     public static void createFiles(){
-//        ProcessInputFiles.documentHashMapCreateAndSaveRunner();
-//        ProcessInputFiles.queryHashMapCreateAndSaveRunner();
-//        ProcessInputFiles.queryRelatedDocumentHashMapCreateAndSaveRunner();
-        ProcessInputFiles.queryTopicHashMapCreateAndSaveRunner();
+        ProcessInputFiles.documentHashMapCreateAndSaveRunner();
+        ProcessInputFiles.queryHashMapCreateAndSaveRunner();
+        ProcessInputFiles.queryRelatedDocumentHashMapCreateAndSaveRunner();
         core.index.DocumentsIndexer.documentsIndexerRunner();
     }
 

@@ -21,13 +21,19 @@ public class F003 {
     }
     private static float compareCategories(String[] queryCategories, String[] docCategories) {
         float result = 0;
-        for(String q : queryCategories){
-            for(String d : docCategories){
-                if(q.equals(d))
-                    result ++;
+        try {
+            for(String q : queryCategories){
+                for(String d : docCategories){
+                    if(q.equals(d))
+                        result ++;
+                }
             }
+            return result / (float)Math.max(queryCategories.length, docCategories.length);
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return result / (float)Math.max(queryCategories.length, docCategories.length);
+        return 0;
+        
     }
 
     public static float getCategoriesSimilarity(String qId, String docId) {

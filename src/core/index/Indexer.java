@@ -30,6 +30,8 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -38,15 +40,16 @@ import org.apache.lucene.store.FSDirectory;
 public class Indexer {
     private final IndexWriter writer;
     
-    public Indexer(String dir) throws IOException {
+    public Indexer(String dir , Similarity similarity) throws IOException {
         Directory indexDir = FSDirectory.open(Paths.get(dir));
         Analyzer analyzer = new StandardAnalyzer();
         IndexWriterConfig cfg = new IndexWriterConfig(analyzer);
+        cfg.setSimilarity(similarity);
         cfg.setOpenMode(OpenMode.CREATE);
         writer = new IndexWriter(indexDir, cfg);
     }
     
-    protected Document getDocument(String docId ,ArrayList<String> documentEntites) throws Exception {
+    protected Document getDocumentArrayList(String docId ,ArrayList<String> documentEntites) throws Exception {
         Document doc = new Document();  
         
         String result = StringUtils.join(documentEntites, ", ");
@@ -55,19 +58,39 @@ public class Indexer {
 
         return doc;
     }
+    
+    protected Document getDocumentString(String dEntity ,String document) throws Exception {
+        Document doc = new Document();  
+        
+        doc.add(new TextField("contents", document, Field.Store.YES)); 
+        doc.add(new StringField("DocId", dEntity,Field.Store.YES));
 
-    private void indexFile(String docId ,ArrayList<String> documentEntites) throws Exception {
-            Document doc = getDocument(docId , documentEntites);
+        return doc;
+    }
+
+    private void indexFileArrayList(String docId ,ArrayList<String> documentEntites) throws Exception {
+            Document doc = getDocumentArrayList(docId , documentEntites);
             writer.addDocument(doc);
     }
     
-    public int index(HashMap<String, ArrayList<String>> document) throws Exception {
+    private void indexFileString(String dEntity ,String document) throws Exception {
+            Document doc = getDocumentString(dEntity , document);
+            writer.addDocument(doc);
+    }
+    
+    public int indexHashMapStringArrayList(HashMap<String, ArrayList<String>> document) throws Exception {
         for (String key : document.keySet()) {
-            indexFile(key, document.get(key));
+            indexFileArrayList(key, document.get(key));
         }
         return writer.numDocs();
     }
     
+    public int indexHashMapStringString(HashMap<String, String> document) throws Exception {
+        for (String key : document.keySet()) {
+            indexFileString(key, document.get(key));
+        }
+        return writer.numDocs();
+    }
   
     public void close() throws IOException {
 	writer.close();

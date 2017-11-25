@@ -53,7 +53,6 @@ public class WorkingSet {
         return document;
     }
     
-
     public String getWorkingSetName() {
         return workingSetName;
     }
@@ -104,7 +103,7 @@ public class WorkingSet {
         if(document.get(docId) != null)
             return document.get(docId);
         else
-            return new ArrayList<String>();
+            return new ArrayList<>();
     }
 
     public int getEntityFrequencyInDoc(String docId, String entity) {
@@ -117,7 +116,7 @@ public class WorkingSet {
 
     public HashSet<String> ArrayListIntersection(ArrayList<String> qEntities, ArrayList<String> dEntities) {
         if(qEntities==null || dEntities==null){
-            return new HashSet<String>();
+            return new HashSet<>();
         }
         HashSet<String> q = new HashSet<>(qEntities);
         HashSet<String> d = new HashSet<>(dEntities);
@@ -147,7 +146,7 @@ public class WorkingSet {
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");
-        queryTopic = ProcessInputFiles.deserializeHashMapQueryTopic(address + workingSetName + "-queriesTopic-Hashmap");
+        queryTopic = ProcessInputFiles.deserializeHashMapStringString(address + workingSetName + "-queriesTopic-Hashmap");
         System.out.println("Loading queriesTopic Hashmap Done");
     }
 
