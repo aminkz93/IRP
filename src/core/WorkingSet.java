@@ -25,7 +25,11 @@ public class WorkingSet {
     private HashMap<String, ArrayList<String>> document;
     private HashMap<String, ArrayList<String>> queryRelatedDocument;
     private HashMap<String, String> queryTopic;
-    private String indexDirectory;
+    private String indexBM25Directory;
+    private String indexBM25AbstractDirectory;
+    private String indexBM25CommentDirectory;
+    private String indexTFIDFAbstractDirectory;
+    private String indexTFIDFCommentDirectory;
     private String workingSetName;
     private String SFileNumber;
 
@@ -33,8 +37,24 @@ public class WorkingSet {
         return SFileNumber;
     }
     
-    public String getIndexDirectory(){
-        return indexDirectory;
+    public String getIndexBM25Directory(){
+        return indexBM25Directory;
+    }
+    
+    public String getIndexBM25AbstractDirectory(){
+        return indexBM25AbstractDirectory;
+    }
+    
+    public String getIndexBM25CommentDirectory(){
+        return indexBM25CommentDirectory;
+    }
+    
+    public String getIndexTFIDFAbstractDirectory(){
+        return indexTFIDFAbstractDirectory;
+    }
+    
+    public String getIndexTFIDFCommentDirectory(){
+        return indexTFIDFCommentDirectory;
     }
     
     public HashMap<String,String> getQueryTopic() {
@@ -139,7 +159,11 @@ public class WorkingSet {
         System.out.println("Loading Serialized Files " + workingSetName);
         String address = "./data/" + workingSetName + "/serialized/";
 //        "./data/2007/serialized/2007-queryRelatedDocuments-Hashmap"
-        indexDirectory = "./data/"+ workingSetName +"/index/";
+        indexBM25Directory = "./data/"+ workingSetName +"/index/Total/BM25";
+        indexBM25AbstractDirectory = "./data/"+ workingSetName  +"/index/Abstract/BM25" ;
+        indexBM25CommentDirectory = "./data/" + workingSetName  +"/index/Comment/BM25";
+        indexTFIDFAbstractDirectory = "./data/"+ workingSetName +"/index/Abstract/TFIDF";
+        indexTFIDFCommentDirectory = "./data/"+ workingSetName  +"/index/Comment/TFIDF";
         query = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queries-Hashmap");
         System.out.println("Loading Query Hashmap Done");
         queryRelatedDocument = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-queryRelatedDocuments-Hashmap"+this.SFileNumber);

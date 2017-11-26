@@ -51,10 +51,8 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
+            f111.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
-//                System.out.println(f95.print(qid, docid));
                 fileWriterContinue(f111.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
@@ -70,10 +68,9 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
+
+            f112.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
-//                System.out.println(f95.print(qid, docid));
                 fileWriterContinue(f112.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 

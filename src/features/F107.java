@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.similarities.BM25Similarity;
 
 /**
  *
@@ -29,7 +30,7 @@ public class F107 {
 
     public F107(WorkingSet ws) throws IOException {
         workingSet = ws;
-        indexSearcher = new IndexSearcher(workingSet.getIndexDirectory());
+        indexSearcher = new IndexSearcher(workingSet.getIndexBM25Directory(), new BM25Similarity());
 
     }
 

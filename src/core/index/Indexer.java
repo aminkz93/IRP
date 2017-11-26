@@ -61,11 +61,12 @@ public class Indexer {
     
     protected Document getDocumentString(String dEntity ,String document) throws Exception {
         Document doc = new Document();  
+        if(document != null){
+            doc.add(new TextField("contents", document, Field.Store.YES)); 
+            doc.add(new StringField("DocId", dEntity,Field.Store.YES));
+        }
+            return doc;
         
-        doc.add(new TextField("contents", document, Field.Store.YES)); 
-        doc.add(new StringField("DocId", dEntity,Field.Store.YES));
-
-        return doc;
     }
 
     private void indexFileArrayList(String docId ,ArrayList<String> documentEntites) throws Exception {

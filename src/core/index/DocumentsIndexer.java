@@ -39,27 +39,27 @@ public class DocumentsIndexer {
 
     public static void documentsIndexerRunner() {
         try {
-            documentHashMap = ProcessInputFiles.deserializeHashMap("./data/2007/serialized/2007-documents-Hashmap");
-            indexDocumentHashMap(documentHashMap,indexDirectory2007);
+//            documentHashMap = ProcessInputFiles.deserializeHashMap("./data/2007/serialized/2007-documents-Hashmap");
+//            indexDocumentHashMap(documentHashMap,indexDirectory2007);
+//            
+//            documentHashMap = ProcessInputFiles.deserializeHashMap("./data/2008/serialized/2008-documents-Hashmap");
+//            indexDocumentHashMap(documentHashMap,indexDirectory2008);
             
-            documentHashMap = ProcessInputFiles.deserializeHashMap("./data/2008/serialized/2008-documents-Hashmap");
-            indexDocumentHashMap(documentHashMap,indexDirectory2008);
-            
-            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-documentsAbstract-Hashmap");
+            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-abstracts-Hashmap");
             indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2007BM25 , new BM25Similarity());
             indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2007TFIDF, new DefaultSimilarity());
             
-            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-documentsAbstract-Hashmap");
+            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-abstracts-Hashmap");
             indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2008BM25 , new BM25Similarity());
             indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2008TFIDF, new DefaultSimilarity());
             
-            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-documentsComment-Hashmap");
-            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007BM25 , new BM25Similarity());
-            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007TFIDF, new DefaultSimilarity());
-            
-            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-documentsComment-Hashmap");
-            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008BM25 , new BM25Similarity());
-            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008TFIDF, new DefaultSimilarity());
+//            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-documentsComment-Hashmap");
+//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007BM25 , new BM25Similarity());
+//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007TFIDF, new DefaultSimilarity());
+//            
+//            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-documentsComment-Hashmap");
+//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008BM25 , new BM25Similarity());
+//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008TFIDF, new DefaultSimilarity());
             
             
         } catch (Exception ex) {

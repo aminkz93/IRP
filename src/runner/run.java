@@ -26,7 +26,11 @@ public class run {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+//        DocumentsIndexer.documentsIndexerRunner();
+       
         CoreServices core = new CoreServices();
+        CreateOutput cp = new CreateOutput(new WorkingSet("2007", "S1"));
+        cp.outputF111();
 //        System.out.print(F23.getPageLegth(14653));
 ////        System.out.println(core.getPageInfoHtml(3649517));
 //        System.out.println(F24.getNumberOfPageWatchers(3649517));
