@@ -47,7 +47,7 @@ public class run {
                 if(!hashset.contains(entity)){
                     i++;
                     System.out.println(i);
-                    System.out.println(F112.executeQuery(entity));
+//                    System.out.println(F112.executeQuery(entity));
                     System.out.println("_____________________________________");
                     
                     hashset.add(entity);
