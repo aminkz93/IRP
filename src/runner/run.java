@@ -5,23 +5,27 @@
  */
 package runner;
 
-import core.CoreServices;
 import core.ProcessInputFiles;
 import core.WorkingSet;
-import features.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import core.index.DocumentsIndexer;
 import core.index.Stemmer;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import core.index.WikiPediaRanker;
-import java.util.Iterator;
-import java.util.Map;
+import features.F116;
+import java.io.IOException;
+import java.sql.SQLException;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.manager.RemoteRepositoryManager;
+
 
 /**
  *
@@ -33,37 +37,113 @@ public class run {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+
+//        test1();
+//        testsparqlQuery();
+//        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
+//           DocumentsIndexer.documentsIndexerRunner();
+//           ProcessInputFiles.categoryHashMapCreateAndSaveRunner();
+//        ProcessInputFiles.pageLengthHashMapCreateAndSaveRunner();
+//        
+//        ProcessInputFiles.categoryHashMapCreateAndSaveRunner();
+        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2007","S2"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2007","S3"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2007","S4"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2007","S5"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2008","S1"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2008","S2"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2008","S3"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2008","S4"));
+        out.outputF116();
+        out = new CreateOutput(new WorkingSet("2008","S5"));
+        out.outputF116();
+//        WorkingSet ws =new WorkingSet("2008","S1");
+//        ws.getEntitytitle("29486330");
+        
+//        F116 f = new F116(new WorkingSet("2007","S1"));
+//        f.execute();
+        //
+//        out.outputF092();
+//        out.outputF094();
+//           WorkingSet ws = new WorkingSet("2007", "S1");
+//           HashSet<String> hs = new HashSet<>();
+//           for(String key : ws.getEntityTitle().keySet()){
+//               for (String value: ws.getEntityTitle().get(key)) {
+//                   hs.add(value);
+//               }
+//           }
+//           System.out.println(hs.size());
+//           File PageLength = new File("./data/Total/SummerizedTypes.Entity");
+//        PageLength.createNewFile();
+//        BufferedReader br = new BufferedReader(new FileReader(new File("./data/Total/Types.Entity")));
+//        BufferedWriter bw = new BufferedWriter(new FileWriter(PageLength));
+//        int i =0;
+//        String line = null;
+//        br.readLine();
+//        while ((line = br.readLine()) != null) {
+//            String[] lineSplit = line.split(">");
+//            if(lineSplit.length>0){
+//                String key = lineSplit[0].substring(29,lineSplit[0].length());
+//                if(hs.contains(key)){
+//                    bw.write(String.format("%s%n",line));
+////                    hs.remove(key);
+//                }
+//            }
+//        }
+//        System.out.println("here");
+//        System.out.println(hs.size());
+//        for (String s : hs) {
+//            System.out.println(s);
+//        }
+//        br.close();
+//        bw.close();
+//        
+           
+//           out.outputF069();
+        
+           
+//          CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
+//          out.outputF069();
 //        testwikipediaIndexer();
-        WorkingSet ws =new WorkingSet("2008", "S1");
-        Iterator it = ws.getDocument().entrySet().iterator();
-        HashSet<String> hashset =  new HashSet<>();
-        int i=0;
-        double start = System.nanoTime();
-        for(String docid : ws.getDocument().keySet()){
-            
-            for(String entity :ws.getDocumentEntities(docid)){
-                
-                
-                if(!hashset.contains(entity)){
-                    i++;
-                    System.out.println(i);
-//                    System.out.println(F112.executeQuery(entity));
-                    System.out.println("_____________________________________");
-                    
-                    hashset.add(entity);
-                }
-                if(i>50){
-                    break;
-                }
-                    
-            }
-            if(i>50)
-                break;
-            
-        }
-        System.out.println(System.nanoTime() - start);
-        
-        
+//        WorkingSet ws =new WorkingSet("2008", "S1");
+//        Iterator it = ws.getDocument().entrySet().iterator();
+//        HashSet<String> hashset =  new HashSet<>();
+//        int i=0;
+//        double start = System.nanoTime();
+//        for(String docid : ws.getDocument().keySet()){
+//            
+//            for(String entity :ws.getDocumentEntities(docid)){
+//                
+//                
+//                if(!hashset.contains(entity)){
+//                    i++;
+//                    System.out.println(i);
+////                    System.out.println(F112.executeQuery(entity));
+//                    System.out.println("_____________________________________");
+//                    
+//                    hashset.add(entity);
+//                }
+//                if(i>50){
+//                    break;
+//                }
+//                    
+//            }
+//            if(i>50)
+//                break;
+//            
+//        }
+//        System.out.println(System.nanoTime() - start);
+//        
+//        
 //        for (int i = 0; i < 1; i++) {
 //            
 //            Map.Entry pair = (Map.Entry)it.next();
@@ -143,50 +223,86 @@ public class run {
 
     public static void test1() throws FileNotFoundException, UnsupportedEncodingException, Exception{
 //        ProcessInputFiles.queryTopicHashMapCreateAndSaveRunner();
+        
         CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+        out.outputF069();
+        out.outputF092();
+        out.outputF094();
         out.outputF003();
         out.outputF111();
         out.outputF112();
-        out = new CreateOutput(new WorkingSet("2007","S1"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2007","S2"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2007","S3"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2007","S4"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2007","S5"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2008","S1"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2008","S2"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2008","S3"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2008","S4"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
-        out = new CreateOutput(new WorkingSet("2008","S5"));
-        out.outputF003();
-        out.outputF111();
-        out.outputF112();
+        out.outputF113();
+        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2007","S1"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2007","S2"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2007","S3"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2007","S4"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2007","S5"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2008","S1"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2008","S2"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2008","S3"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2008","S4"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
+//        out = new CreateOutput(new WorkingSet("2008","S5"));
+//        out.outputF094();
+//        out.outputF003();
+//        out.outputF111();
+//        out.outputF112();
+//        out.outputF113();
+//        out.outputF114();
         
     }
     public static void test2() throws FileNotFoundException, UnsupportedEncodingException, Exception{
@@ -431,4 +547,50 @@ public class run {
         core.index.DocumentsIndexer.documentsIndexerRunner();
     }
 
+    
+    public static void testsparqlQuery() throws SQLException, IOException{
+        String serverUrl = "http://localhost:7200";
+        String repoID = "DBpedia";
+        
+        
+        RemoteRepositoryManager manager = new RemoteRepositoryManager(serverUrl);
+        manager.initialize();
+        Repository repo = manager.getRepository(repoID);
+        repo.initialize();
+        
+        
+//        Repository db = new SailRepository(new MemoryStore());
+//        db.initialize();
+
+        // Open a connection to the database
+        try (RepositoryConnection conn = repo.getConnection();) {
+                
+
+                // We do a simple SPARQL SELECT-query that retrieves all resources of type `ex:Artist`,
+                // and their first names.
+                String queryString ="PREFIX dbr: <http://dbpedia.org/resource/>\n" +
+                                    "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
+                                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                                    "SELECT ?type \n" +
+                                    "    WHERE {dbr:Apollo rdf:type ?type .}";
+
+                TupleQuery query = conn.prepareTupleQuery(queryString);
+
+                // A QueryResult is also an AutoCloseable resource, so make sure it gets closed when done.
+                try (TupleQueryResult result = query.evaluate()) {
+                    while (result.hasNext()) {
+                        BindingSet solution = result.next();
+                        System.out.println("?type = " + solution.getValue("type"));
+                    }
+                   
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+        }
+        finally {
+                // Before our program exits, make sure the database is properly shut down.
+                repo.shutDown();
+        }
+    }
 }
