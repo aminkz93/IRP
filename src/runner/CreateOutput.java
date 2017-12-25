@@ -45,7 +45,7 @@ public class CreateOutput {
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
 //                System.out.println(docid);
 //                System.out.println(f95.print(qid, docid));
-                fileWriterContinue(f03.print(qid, docid), saveAddress);
+//                fileWriterContinue(f03.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
             }
@@ -69,7 +69,7 @@ public class CreateOutput {
         F069 f69 = new F069(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
-        fileWriterContinue(f69.print(), saveAddress);
+//        fileWriterContinue(f69.print(), saveAddress);
 
         System.out.println("F69.txt" + " done");
     }
@@ -82,7 +82,7 @@ public class CreateOutput {
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
             f111.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-                fileWriterContinue(f111.print(qid, docid), saveAddress);
+//                fileWriterContinue(f111.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
             }
@@ -100,7 +100,7 @@ public class CreateOutput {
 
             f112.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-                fileWriterContinue(f112.print(qid, docid), saveAddress);
+//                fileWriterContinue(f112.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
             }
@@ -118,7 +118,7 @@ public class CreateOutput {
 
             f113.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-                fileWriterContinue(f113.print(qid, docid), saveAddress);
+//                fileWriterContinue(f113.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
             }
@@ -136,7 +136,7 @@ public class CreateOutput {
 
             f114.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-                fileWriterContinue(f114.print(qid, docid), saveAddress);
+//                fileWriterContinue(f114.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
             }
@@ -195,7 +195,7 @@ public class CreateOutput {
             System.out.println(index++);
             System.out.println(qid);
             
-            fileWriterContinue(f94.print(qid), saveAddress);   
+//            fileWriterContinue(f94.print(qid), saveAddress);   
         }
         System.out.println("F94.txt" + " done");
     }

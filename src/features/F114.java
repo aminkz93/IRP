@@ -44,33 +44,54 @@ public class F114 {
         }
 
     }
-    public String print(String qid, String docid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+    public String[] print(String qid, String docid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+        String [] results = new String[4];
         List<String> dEntity = workingSet.getDocumentEntities(docid);
         List<String> qEntity = workingSet.getQueryEntities(qid);
         String q = workingSet.getQueryTopic().get(qid);
-        String output = "";
+        String stringOutput = "";
+        double mean = 0;
+        double min = 0;
+        double max = 0;
+        int count = 0;
         double result;
         for (String qentity : qEntity) {
             for (String dentity : dEntity) {
-                if(workingSet.getEntityTitle().containsKey(dentity)){
-                    for(String title : workingSet.getEntityTitle().get(dentity)){
-                        if (resultsDoc.containsKey(title)) {
-                            result = resultsDoc.get(title);
-                            System.out.println(title);
-                        } else {
-                            result = 0;
+                try{
+                    if(workingSet.getEntityTitle().containsKey(dentity)){
+                        for(String title : workingSet.getEntityTitle().get(dentity)){
+                            if (resultsDoc.containsKey(title)) {
+                                result = resultsDoc.get(title);
+                            } else {
+                                result = 0;
+                            }
+                            stringOutput += qentity + "-" + dentity + " " + result + "\n";
+                            mean += result;
+                            if(min > result)
+                                min =result;
+                            if(max < result)
+                                max =result;
+                            count++;
                         }
-//                        output += qentity + "-" + dentity + " " + result + "\n";
-                        output += workingSet.getEntitytitle(qentity) + "-" + workingSet.getEntitytitle(dentity) + " " + result + "\n";
                     }
                 }
-                
+                catch(Exception ex){
+                    ex.printStackTrace();
+                    stringOutput = "";
+                    mean = 0;
+                    min = 0;
+                    max = 0;
+                    count = 0;
+                }
             }
         }
+        if (count != 0)
+            mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
         
-
-//        output += "------------------------------------\n";
-        return output;
+        return results;
     }
-    
 }

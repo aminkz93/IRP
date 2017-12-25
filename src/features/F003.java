@@ -58,12 +58,14 @@ public class F003 {
             return result;
         }
         catch(Exception ex){
+            ex.printStackTrace();
             return 0;
         }
         
     }
     
-    public String print(String qid,String docid){
+    public String[] print(String qid,String docid){
+        String [] results = new String[4];
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
         ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
         String stringOutput = "";
@@ -84,49 +86,12 @@ public class F003 {
                 count++;
             }
         }
-        return stringOutput;
+        mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
+        
+        return results;
     }
-//    public double mean(String qid,String docid){
-//        ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-//        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
-//        double output = 0;
-//        double result;
-//        int count = 0;
-//        for(String q : qEntities){
-//            for(String d : dEntities ){
-//                result = getCategoriesSimilarity(q, d);
-//                output += result;
-//                count ++;
-//            }
-//        }
-//        return output/(double)count;
-//    }
-//    public double min(String qid,String docid){
-//        ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-//        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
-//        double output = 0;
-//        double result;
-//        for(String q : qEntities){
-//            for(String d : dEntities ){
-//                result = getCategoriesSimilarity(q, d);
-//                if(result < output)
-//                    output = result;
-//            }
-//        }
-//        return output;
-//    }
-//    public double max(String qid,String docid){
-//        ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-//        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
-//        double output = 0;
-//        double result;
-//        for(String q : qEntities){
-//            for(String d : dEntities ){
-//                result = getCategoriesSimilarity(q, d);
-//                if(result > output)
-//                    output = result;
-//            }
-//        }
-//        return output;
-//    }
 }

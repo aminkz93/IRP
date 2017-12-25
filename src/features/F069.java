@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by amin on 7/21/17.
@@ -21,18 +22,37 @@ public class F069 {
         return CoreServices.parseInt(CoreServices.getLength(pageEntity));
         
     }
-    public String print() throws IOException {
-        String result = "";
-        int i =0;
-        for (String entity :workingSet.getEntityTitle().keySet()) {
-            for (String value : workingSet.getEntityTitle().get(entity)) {
-                if(workingSet.getPageLength().containsKey(value))
-//                    result += entity +" "+ workingSet.getPageLength().get(value)+"\n";
-                     result += workingSet.getEntitytitle(entity) +" "+ workingSet.getPageLength().get(value)+"\n";
+    public String[] print(String docid){
+        String [] results = new String[4];
+        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
+        String stringOutput = "";
+        double mean = 0;
+        double min = 0;
+        double max = 0;
+        int count = 0;
+        double result =0;
+        for(String d : dEntities ){
+            for (String value : workingSet.getEntityTitle().get(d)) {
+                if(workingSet.getPageLength().containsKey(value)){
+                    result = Double.parseDouble(workingSet.getPageLength().get(value));
+                }
             }
-            System.out.println(i++);
+            stringOutput += d + " " + result +"\n";
+            mean += result;
+            if(min > result)
+                min =result;
+            if(max < result)
+                max =result;
+            count++;
         }
-        return result;
+        
+        mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
+        
+        return results;
     }
     
 }

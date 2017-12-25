@@ -52,135 +52,55 @@ public class F111 {
 
     }
 
-//    public double execute(String qid, String docid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
-//        
-//            execute(qid);
-//            if (resultsDoc.containsKey(docid)) 
-//                return resultsDoc.get(docid);
-//            else 
-//                return 0;
-//            
-//        
-//    }
-    public String print(String qid, String docid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+    public String[] print(String qid, String docid) throws IOException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
+        String [] results = new String[4];
         List<String> dEntity = workingSet.getDocumentEntities(docid);
         List<String> qEntity = workingSet.getQueryEntities(qid);
         String q = workingSet.getQueryTopic().get(qid);
-        String output = "";
+        String stringOutput = "";
+        double mean = 0;
+        double min = 0;
+        double max = 0;
+        int count = 0;
         double result;
         for (String qentity : qEntity) {
             for (String dentity : dEntity) {
-                if(workingSet.getEntityTitle().containsKey(dentity)){
-                    for(String title : workingSet.getEntityTitle().get(dentity)){
-                        if (resultsDoc.containsKey(title)) {
-                            result = resultsDoc.get(title);
-                            System.out.println(title);
-                        } else {
-                            result = 0;
+                try{
+                    if(workingSet.getEntityTitle().containsKey(dentity)){
+                        for(String title : workingSet.getEntityTitle().get(dentity)){
+                            if (resultsDoc.containsKey(title)) {
+                                result = resultsDoc.get(title);
+                            } else {
+                                result = 0;
+                            }
+                            stringOutput += qentity + "-" + dentity + " " + result + "\n";
+                            mean += result;
+                            if(min > result)
+                                min =result;
+                            if(max < result)
+                                max =result;
+                            count++;
                         }
-//                        output += qentity + "-" + dentity + " " + result + "\n";
-                        output += workingSet.getEntitytitle(qentity) + "-" + workingSet.getEntitytitle(dentity) + " " + result + "\n";
                     }
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                    stringOutput = "";
+                    mean = 0;
+                    min = 0;
+                    max = 0;
+                    count = 0;
                 }
             }
         }
+        if (count != 0)
+            mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
         
-
-//        output += "------------------------------------\n";
-        return output;
+        return results;
     }
 
-    
-    
-    
-//    private WorkingSet workingSet;
-//
-//    public F111(WorkingSet ws) {
-//        workingSet = ws;
-//    }
-//    public static String executeQuery(String dEntity) throws Exception {  
-//        
-//        String wikiAbstract = null ;
-//        String wikiComment = null;
-//        String AbstractQuery ="PREFIX dbr: <http://dbpedia.org/resource/>\n" +
-//                        "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
-//                        "SELECT ?abstract\n" +
-//                        "WHERE {?subject dbo:abstract ?abstract .\n" +
-//                        "       ?subject dbo:wikiPageID "+
-//                        dEntity
-//                        +".\n" +
-//                        "       FILTER langMatches(lang(?abstract),'en') \n" +
-//                        "\n" +
-//                        "}";
-//        ResultSet results = core.CoreServices.executeSparqlQuery(AbstractQuery);
-//        while (results.hasNext()) {
-//            QuerySolution soln = results.next();
-//
-//            Literal countLiteral = ((Literal) soln.get("abstract"));
-//            if(countLiteral != null)
-//                wikiAbstract = countLiteral.getString();
-//            System.out.println(wikiAbstract);
-//
-//        }
-////        String CommentQuery ="PREFIX dbr: <http://dbpedia.org/resource/>\n" +
-////                        "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
-////                        "\n" +
-////                        "\n" +
-////                        "SELECT ?comment\n" +
-////                        "WHERE {?subject rdfs:comment ?comment .\n" +
-////                        "?subject dbo:wikiPageID "+
-////                        dEntity+
-////                        ".\n" +
-////                        "FILTER langMatches(lang(?comment),'en') \n" +
-////                        "\n" +
-////                        "}";
-////        results = core.CoreServices.executeSparqlQuery(AbstractQuery);
-////        while (results.hasNext()) {
-////            QuerySolution soln = results.next();
-////
-////            Literal countLiteral = ((Literal) soln.get("comment"));
-////            if(countLiteral != null)
-////                wikiComment = countLiteral.getString();
-////            System.out.println(wikiComment);
-////
-////        }
-////        //}
-//
-//        return wikiAbstract; //+ " " +wikiComment;
-//    }
-//    public String print(String qid, String docid) throws Exception {
-//        if(workingSet.getQueryTopic().containsKey(qid)){
-//            String q = workingSet.getQueryTopic().get(qid);
-//            List<String> dEntity = workingSet.getDocumentEntities(docid);
-//            List<String> qEntity = workingSet.getQueryEntities(qid);
-//            String output ="" ;//qid +" :\n";
-//            WikiPediaRanker wi = new WikiPediaRanker();
-//            int result = 0;
-//            
-//            for (String dentity :dEntity) {
-//                
-//                String docAbstarct = executeQuery(dentity);
-//                wi.insertDocAbstract(dentity, docAbstarct);
-//                
-//            }
-//            
-//            for (String dentity :dEntity) {
-//                wi.index();
-//                List<String> queryTokens = Stemmer.stem(q);
-//
-//                for(String queryToken : queryTokens )
-//                    result += wi.search(queryToken,dentity);
-//
-//                for(String qentity :qEntity){
-//                    output += qentity + "-" + dentity + " "+result + "\n";
-//                }
-//            }
-//            
-//
-//    //        output += "------------------------------------\n";
-//            return output;
-//        }
-//        else
-//            return "";
-//    }
 }

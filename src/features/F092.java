@@ -58,27 +58,41 @@ public class F092 {
 
         return count;
     }
-    public String print(String qid) throws Exception {
+    public String[] print(String qid) throws Exception {
+        String [] results = new String[4];
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-        String output = ""; //qid +" :\n";
         int result;
+        String stringOutput = "";
+        double mean = 0;
+        double min = 0;
+        double max = 0;
+        int count = 0;
         for (String entity : qEntities) {
             result = executeQuery(entity);
-            output += entity + " " + result + "\n";
+            stringOutput += entity + " " + result + "\n";
+            mean += result;
+            if(min > result)
+                min =result;
+            if(max < result)
+                max =result;
+            count++;
         }
-//        output += "------------------------------------\n";
-        return output;
+        mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
+        
+        return results;
     }
     public String print() throws Exception {
        
-        String output = ""; //qid +" :\n";
+        String output = ""; 
         int result;
         for (String entity : workingSet.getEntityTitle().keySet()) {
             result = executeQuery(entity);
-//            output += entity + " " + result + "\n";
             output += workingSet.getEntitytitle(entity) + " " + result + "\n";
         }
-//        output += "------------------------------------\n";
         return output;
     }
 }

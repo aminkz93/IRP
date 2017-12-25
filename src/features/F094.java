@@ -46,35 +46,58 @@ public class F094 {
 //
 //        return type;
 //    }
-    public  String executeQuery(String qEntity) throws Exception {  
-        String type = null ;
+    public double executeQuery(String qEntity, String dEntity) throws Exception {  
+        String typeqEntity = "" ;
+        String typedEntity = "" ;
+        double result = 0;
         try{
-        
             for (String value : workingSet.getEntityTitle().get(qEntity)) {
                 if(workingSet.getTypes().containsKey(value))
-                    type = workingSet.getTypes().get(value);
+                    typeqEntity = workingSet.getTypes().get(value);
             }
+            
+            for (String value : workingSet.getEntityTitle().get(dEntity)) {
+                if(workingSet.getTypes().containsKey(value))
+                    typedEntity = workingSet.getTypes().get(value);
+            }
+            
+            if(typedEntity.equals(typeqEntity))
+                result = 1;
         }
         catch(Exception ex)
         {
-        
+            ex.printStackTrace();
         }
-        return type;
+        return result;
     }
-    public String print(String qid) throws Exception {
+    public String[] print(String qid, String docid) throws Exception {
+        String [] results = new String[4];
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
-        String output ="";// qid +" :\n";
-        String result;
-        for (String entity : qEntities) {
-            result = executeQuery(entity);
-            if(result != null)
-//                output +=  entity + " " + result + "\n";
-                output +=  workingSet.getEntitytitle(entity) + " " + result + "\n";
-            else
-//                output +=  entity + " " + "null" + "\n";
-                output +=  workingSet.getEntitytitle(entity) + " " + "null" + "\n";
+        ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
+        String stringOutput = "";
+        double mean = 0;
+        double min = 0;
+        double max = 0;
+        int count = 0;
+        double result;
+        for (String qEntity : qEntities) {
+            for (String dEntity : dEntities) {
+                result = executeQuery(qEntity,dEntity);
+                stringOutput +=  qEntity + "-"+ dEntity + " " + result + "\n";
+                mean += result;
+                if(min > result)
+                    min =result;
+                if(max < result)
+                    max =result;
+                count++;
+            }
         }
-//        output += "------------------------------------\n";
-        return output;
+        mean = mean /(double)count ;
+        results[0] = stringOutput;
+        results[1] = String.valueOf(min);
+        results[2] = String.valueOf(max);
+        results[3] = String.valueOf(mean);
+        
+        return results;
     }
 }
