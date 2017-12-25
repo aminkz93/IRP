@@ -74,14 +74,4 @@ public class F107 {
         output += "------------------------------------\n";
         return output;
     }
-
-//    private ArrayList<String> intersection(ArrayList<String> qEntities, ArrayList<String> dEntities){
-//        ArrayList<String> output =  new ArrayList<>();
-//        for(String s : qEntities){
-//            if(dEntities.contains(s)){
-//                output.add(s);
-//            }
-//        }
-//        return output;
-//    }
 }

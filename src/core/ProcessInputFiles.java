@@ -5,6 +5,7 @@
  */
 package core;
 
+import features.F115;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +31,7 @@ public class ProcessInputFiles {
     CREATES A HASHMAP OF THE QUERIES ENTITIES FROM THE GIVEN FILE
      */
     private static HashMap<String, ArrayList<String>> createQueryHashMap(File fin) throws IOException {
-        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
         // Construct BufferedReader from FileReader
         BufferedReader br = new BufferedReader(new FileReader(fin));
 
@@ -39,7 +40,7 @@ public class ProcessInputFiles {
             String[] lineSplit = line.split(":");
 
             String[] entities = lineSplit[1].substring(1).split(",");
-            ArrayList<String> entList = new ArrayList<String>();
+            ArrayList<String> entList = new ArrayList<>();
 
             entList.addAll(Arrays.asList(entities));
             map.put(lineSplit[0], entList);
@@ -66,7 +67,142 @@ public class ProcessInputFiles {
         br.close();
         return map;
     }
+    
+    private static HashMap<String, String> createEntityTypeHashMap(File fin) throws IOException {
+        HashMap<String, String> map = new HashMap<>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
 
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(">");
+            if(lineSplit.length>0){
+                String key = lineSplit[0].substring(29,lineSplit[0].length());
+                String[] values = lineSplit[2].split("\"");
+                String value = values[values.length-1];
+                map.put(key, value);
+            }
+        }
+
+        br.close();
+        return map;
+    }
+    
+    private static HashMap<String, ArrayList<String>> createEnityTitleHashMap(File fin) throws IOException {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+        int i =0;
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(":");
+            if(lineSplit.length>0){
+            String key = lineSplit[0];
+            
+            ArrayList<String> titles = new ArrayList<>();
+            titles.add((lineSplit[1].substring(0,lineSplit[1].length()-1)).replace(' ', '_'));
+            if(lineSplit.length>2){
+                titles.add((lineSplit[2].substring(1,lineSplit[2].length())).replace(' ', '_'));
+            }
+            map.put(key, titles);
+            }
+        }
+
+        br.close();
+        return map;
+    }
+
+    private static HashMap<String, String> createPageLengthHashMap(File fin) throws IOException {
+        HashMap<String, String> map = new HashMap<>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+        int i =0;
+        String line = null;
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(">");
+            if(lineSplit.length>0){
+                String key = lineSplit[0].substring(29,lineSplit[0].length());
+                System.out.println(i++);
+                String[] values = lineSplit[2].split("\"");
+                String value = values[1];
+                map.put(key, value);
+            }
+        }
+
+        br.close();
+        return map;
+    }
+    
+    private static HashMap<String, ArrayList<String>> createCategoryHashMap(File fin) throws IOException {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+        int i =0;
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(">");
+            if(lineSplit.length>0){
+                String key = lineSplit[0].substring(29,lineSplit[0].length());
+                System.out.println(i++);
+                String[] values = lineSplit[2].split(":");
+                String value = values[2];
+                if(map.containsKey(key)){
+                    map.get(key).add(value);
+                }
+                else
+                    map.put(key, new ArrayList<String>(){{add(value);}});
+            }
+        }
+
+        br.close();
+        return map;
+    }
+    
+    private static HashMap<String, ArrayList<String>> createSimilarEntityHashMap(File fin) throws IOException, Exception {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+        int i =0;
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(":");
+            if(lineSplit.length>0){
+                String key = lineSplit[0];
+                ArrayList<String> values = F115.executeQuery(key);
+                if(!map.containsKey(key)){
+                    map.put(key,values);
+                }
+            }
+        }
+
+        br.close();
+        return map;
+    }
+    
+    private static HashMap<String, ArrayList<String>> createExternalLinksHashMap(File fin) throws IOException {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(fin));
+        int i =0;
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(">");
+            if(lineSplit.length>0){
+                String key = lineSplit[0].substring(29,lineSplit[0].length());
+                System.out.println(i++);
+                String value = lineSplit[2].substring(1);
+                if(map.containsKey(key)){
+                    map.get(key).add(value);
+                }
+                else
+                    map.put(key, new ArrayList<String>(){{add(value);}});
+            }
+        }
+
+        br.close();
+        return map;
+    }
+    
     private static void storeQueryHashMap(String queryFile, String outputName) {
         try {
             HashMap<String, ArrayList<String>> map = createQueryHashMap(new File(queryFile));
@@ -78,11 +214,76 @@ public class ProcessInputFiles {
 
     }
     
-    private static void storeQueryTopicHashMap(String queryTopicFile, String outputName) {
+    private static void storeQueryTopicHashMap(String inputFile, String outputName) {
         try {
-            HashMap<String, String> map = createQueryTopicHashMap(new File(queryTopicFile));
-            String saveAddress = queryTopicFile.substring(0, 11) + "/serialized/" + outputName;
-            serializeHashMapQueryTopic(map, saveAddress);
+            HashMap<String, String> map = createQueryTopicHashMap(new File(inputFile));
+            String saveAddress = inputFile.substring(0, 11) + "/serialized/" + outputName;
+            serializeStringHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storeEntityTypeHashMap(String inputFile, String outputName) {
+        try {
+            HashMap<String, String> map = createEntityTypeHashMap(new File(inputFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeStringHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storePageLengthHashMap(String inputFile, String outputName) {
+        try {
+            HashMap<String, String> map = createPageLengthHashMap(new File(inputFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeStringHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storeCategoriesHashMap(String inputFile, String outputName) {
+        try {
+            HashMap<String, ArrayList<String>> map = createCategoryHashMap(new File(inputFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storeSimilarEntityHashMap(String inputFile, String outputName) throws Exception {
+        try {
+            HashMap<String, ArrayList<String>> map = createSimilarEntityHashMap(new File(inputFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    private static void storeExternalLinksHashMap(String inputFile, String outputName) {
+        try {
+            HashMap<String, ArrayList<String>> map = createExternalLinksHashMap(new File(inputFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private static void storeEntityTitleHashMap(String entityTitleFile, String outputName) {
+        try {
+            HashMap<String, ArrayList<String>> map = createEnityTitleHashMap(new File(entityTitleFile));
+            String saveAddress = "./data/Total/serialized/" + outputName;
+            serializeHashMap(map, saveAddress);
         } catch (IOException ex) {
             Logger.getLogger(ProcessInputFiles.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,7 +337,7 @@ public class ProcessInputFiles {
     This method takes a hashmap and saves it to the given address 
     the file Extention is .ser which is automatically added to the file
      */
-    private static void serializeHashMapQueryTopic(HashMap<String,String> map, String address) {
+    public static void serializeStringHashMap(HashMap<String,String> map, String address) {
         try {
             FileOutputStream fileOut = new FileOutputStream(address + ".ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -218,7 +419,85 @@ public class ProcessInputFiles {
             storeQueryTopicHashMap(queryTopicFiles[i], outputTopicNames[i]);
         }
     }
+    /* 
+    LOAD ENTITY TYPE FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void entityTypeHashMapCreateAndSaveRunner() {
+        String[] entityTypeFiles = {"./data/Total/SummerizedTypes.Entity"};
+        String[] outputentityTypeNames = {"SummerizedEntityType-Hashmap"};
+        for (int i = 0; i < entityTypeFiles.length; i++) {
+            storeEntityTypeHashMap(entityTypeFiles[i], outputentityTypeNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD PAGELENGTH FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void pageLengthHashMapCreateAndSaveRunner() {
+        String[] pageLengthFiles = {"./data/Total/SummerizedPageLength.Entity"};
+        String[] outputPageLengthNames = {"SummerizedPageLength-Hashmap"};
+        for (int i = 0; i < pageLengthFiles.length; i++) {
+            storePageLengthHashMap(pageLengthFiles[i], outputPageLengthNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD QUERYTOPIC FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void categoryHashMapCreateAndSaveRunner() {
+        String[] categoryFiles = {"./data/Total/SummerizedArticleCategories.Entity"};
+        String[] outputcategoryNames = {"SummerizedArticleCategories-Hashmap"};
+        for (int i = 0; i < categoryFiles.length; i++) {
+            storeCategoriesHashMap(categoryFiles[i], outputcategoryNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD SEE ALSO ENTITY FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void similarEntityHashMapCreateAndSaveRunner() throws Exception {
+        String[] similarEntityFiles = {"./data/Total/Title.Entity"};
+        String[] outputSimilarEntityNames = {"SimilarEntities-Hashmap"};
+        for (int i = 0; i < similarEntityFiles.length; i++) {
+            storeSimilarEntityHashMap(similarEntityFiles[i], outputSimilarEntityNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD EXTERNAL LINKS FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void externalLinksHashMapCreateAndSaveRunner() {
+        String[] externalLinksFiles = {"./data/Total/SummerizedExternalLinks.Entity"};
+        String[] outputexternalLinksNames = {"SummerizedEntityExternalLinks-Hashmap"};
+        for (int i = 0; i < externalLinksFiles.length; i++) {
+            storeExternalLinksHashMap(externalLinksFiles[i], outputexternalLinksNames[i]);
+        }
+    }
+    
+    /* 
+    LOAD Abstract FILES AND CREATE HASHMAP
+    THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION
+    HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
+     */
+    public static void entityTitleHashMapCreateAndSaveRunner() {
+        String[] entityTitleFiles = {"./data/Total/Title.Entity"};
+        String[] outputEntityTitleNames = {"EntityTitle-Hashmap"};
+        for (int i = 0; i < entityTitleFiles.length; i++) {
+            storeEntityTitleHashMap(entityTitleFiles[i], outputEntityTitleNames[i]);
+        }
+    }
 
+    
     /* 
     LOAD Letor S1-S5 query-doc FILES AND CREATE HASHMAP
     THEN SAVE THE OBJECTS OF HASHMAPS USING SERIALIZATION

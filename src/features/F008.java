@@ -18,21 +18,7 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 public class F008 {
     
     public static void executeQuery() throws Exception {
-            
-//        String query = " 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-//				+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-//				+ " PREFIX : <http://dbpedia.org/resource/>"
-//				+ " PREFIX d: <http://dbpedia.org/ontology/> "
-//				+ " SELECT distinct ?albumName ?artistName "
-//				+ " WHERE "
-//				+ " { "
-//				+ " ?album d:producer :Timbaland . "
-//				+ " ?album d:musicalArtist ?artist ."
-//				+ " ?album rdfs:label ?albumName . "
-//				+ " ?artist rdfs:label ?artistName ."
-//				+ " FILTER ( lang(?artistName) = \"en\")"
-//				+ " FILTER ( lang(?albumName) = \"en\" )" + " }";
-        
+    
         String query = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
                        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "+
                        "PREFIX dbp: <http://dbpedia.org/resource/>" +

@@ -24,17 +24,13 @@ public class DocumentsIndexer {
 
     private static String indexDirectory2007       = "./data/2007/index/Total/BM25";
     private static String indexDirectory2008       = "./data/2008/index/Total/BM25";
-    private static String abstractHashMap2007BM25  = "./data/2007/index/Abstract/BM25";
-    private static String abstractHashMap2007TFIDF = "./data/2007/index/Abstract/TFIDF";
-    private static String abstractHashMap2008BM25  = "./data/2008/index/Abstract/BM25";
-    private static String abstractHashMap2008TFIDF = "./data/2008/index/Abstract/TFIDF";
-    private static String commentHashMap2007BM25   = "./data/2007/index/Comment/BM25";
-    private static String commentHashMap2007TFIDF  = "./data/2007/index/Comment/TFIDF";
-    private static String commentHashMap2008BM25   = "./data/2008/index/Comment/BM25";
-    private static String commentHashMap2008TFIDF  = "./data/2008/index/Comment/TFIDF";
-    private static HashMap<String, String> documentAbstractHashMap;
-    private static HashMap<String, String> documentCommentHashMap;
-    private static HashMap<String, ArrayList<String>> documentHashMap;
+    private static String abstractHashMapBM25      = "./data/Total/index/Abstract/BM25";
+    private static String abstractHashMapTFIDF     = "./data/Total/index/Abstract/TFIDF";
+    private static String commentHashMapBM25      = "./data/Total/index/Comment/BM25";
+    private static String commentHashMapTFIDF     = "./data/Total/index/Comment/TFIDF";
+    private static String abstractAddress          = "./data/Total/Abstracts.Entity";
+    private static String commentAddress           = "./data/Total/ShortAbstracts.Entity";
+    
     
 
     public static void documentsIndexerRunner() {
@@ -45,21 +41,13 @@ public class DocumentsIndexer {
 //            documentHashMap = ProcessInputFiles.deserializeHashMap("./data/2008/serialized/2008-documents-Hashmap");
 //            indexDocumentHashMap(documentHashMap,indexDirectory2008);
             
-            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-abstracts-Hashmap");
-            indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2007BM25 , new BM25Similarity());
-            indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2007TFIDF, new DefaultSimilarity());
             
-            documentAbstractHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-abstracts-Hashmap");
-            indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2008BM25 , new BM25Similarity());
-            indexDocumentHashMapStringString(documentAbstractHashMap, abstractHashMap2008TFIDF, new DefaultSimilarity());
+            indexDocument(abstractAddress, abstractHashMapBM25 , new BM25Similarity());
+            indexDocument(abstractAddress, abstractHashMapTFIDF, new DefaultSimilarity());
             
-//            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2007/serialized/2007-documentsComment-Hashmap");
-//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007BM25 , new BM25Similarity());
-//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2007TFIDF, new DefaultSimilarity());
-//            
-//            documentCommentHashMap = ProcessInputFiles.deserializeHashMapStringString("./data/2008/serialized/2008-documentsComment-Hashmap");
-//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008BM25 , new BM25Similarity());
-//            indexDocumentHashMapStringString(documentCommentHashMap, commentHashMap2008TFIDF, new DefaultSimilarity());
+            indexDocument(commentAddress, commentHashMapBM25 , new BM25Similarity());
+            indexDocument(commentAddress, commentHashMapTFIDF, new DefaultSimilarity());
+            
             
             
         } catch (Exception ex) {
@@ -75,9 +63,9 @@ public class DocumentsIndexer {
         
     }
     
-    private static void indexDocumentHashMapStringString(HashMap<String, String> documentHashMap, String indexDir , Similarity similarity) throws IOException, Exception {
+    private static void indexDocument(String documentAddress, String indexDir , Similarity similarity) throws IOException, Exception {
         Indexer indexer = new Indexer(indexDir , similarity);
-        indexer.indexHashMapStringString(documentHashMap);
+        indexer.indexDocument(documentAddress);
         indexer.close();
         
     }

@@ -26,6 +26,15 @@ public class CreateOutput {
         this.workingSet = workingSet;
     }
     
+    public void outputF001(){
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F01"+ workingSet.getSFileNumber()+ ".txt";
+        F001 f01 = new F001(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        fileWriterContinue(f01.print(), saveAddress);
+        System.out.println("F01.txt" + " done");
+    }
+    
     public void outputF003() {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F03"+ workingSet.getSFileNumber()+ ".txt";
         F003 f03 = new F003(workingSet);
@@ -43,6 +52,26 @@ public class CreateOutput {
         }
 //        writeOutputToFile(output,saveAddress);
         System.out.println("F03.txt" + " done");
+    }
+    
+    public void outputF092() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F92"+ workingSet.getSFileNumber()+ ".txt";
+        F092 f92 = new F092(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        fileWriterContinue(f92.print(), saveAddress);
+
+        System.out.println("F92.txt" + " done");
+    }
+    
+    public void outputF069() throws IOException {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F69"+ workingSet.getSFileNumber()+ ".txt";
+        F069 f69 = new F069(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        fileWriterContinue(f69.print(), saveAddress);
+
+        System.out.println("F69.txt" + " done");
     }
     
     public void outputF111() throws Exception {
@@ -80,6 +109,43 @@ public class CreateOutput {
         System.out.println("F112.txt" + " done");
     }
     
+    public void outputF113() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F113"+ workingSet.getSFileNumber()+ ".txt";
+        F113 f113 = new F113(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+
+            f113.execute(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+                fileWriterContinue(f113.print(qid, docid), saveAddress);
+//                output += f95.print(qid, docid);
+
+            }
+        }
+//        writeOutputToFile(output,saveAddress);
+        System.out.println("F113.txt" + " done");
+    }
+    
+    public void outputF114() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F114"+ workingSet.getSFileNumber()+ ".txt";
+        F114 f114 = new F114(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+
+            f114.execute(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+                fileWriterContinue(f114.print(qid, docid), saveAddress);
+//                output += f95.print(qid, docid);
+
+            }
+        }
+//        writeOutputToFile(output,saveAddress);
+        System.out.println("F114.txt" + " done");
+    }
+    
+    
     public void outputF078() throws Exception {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F78"+ workingSet.getSFileNumber() +".txt";
         F078 f78 = new F078(workingSet);
@@ -102,6 +168,36 @@ public class CreateOutput {
         }
 //        writeOutputToFile(output,saveAddress);
         System.out.println("F78.txt" + " done");
+    }
+    
+//    public void outputF092() throws Exception {
+//        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F92"+ workingSet.getSFileNumber() +".txt";
+//        F092 f92 = new F092(workingSet);
+//        String output = "";
+//        int index =1;
+//        writeOutputToFile(output, saveAddress);
+//        for (String qid : workingSet.getQuery().keySet()) {
+//            System.out.println(index++);
+//            System.out.println(qid);
+//            
+//            fileWriterContinue(f92.print(qid), saveAddress);   
+//        }
+//        System.out.println("F92.txt" + " done");
+//    }
+    
+    public void outputF094() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F94"+ workingSet.getSFileNumber() +".txt";
+        F094 f94 = new F094(workingSet);
+        String output = "";
+        int index =1;
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQuery().keySet()) {
+            System.out.println(index++);
+            System.out.println(qid);
+            
+            fileWriterContinue(f94.print(qid), saveAddress);   
+        }
+        System.out.println("F94.txt" + " done");
     }
 
     public void outputF095() {
@@ -211,6 +307,7 @@ public class CreateOutput {
         System.out.println("F100.txt" + " done");
 
     }
+    
 
     public void outputF101() {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F101"+ workingSet.getSFileNumber()+ ".txt";
@@ -287,6 +384,24 @@ public class CreateOutput {
         }
 
         System.out.println("F105.txt" + " done");
+
+    }
+    
+    public void outputF116() throws Exception {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F116"+ workingSet.getSFileNumber()+ ".txt";
+        F116 f116 = new F116(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+//            System.out.println(qid);
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+//                System.out.println(docid);
+                fileWriterContinue(f116.print(qid, docid), saveAddress);
+
+            }
+        }
+
+        System.out.println("F116.txt" + " done");
 
     }
 

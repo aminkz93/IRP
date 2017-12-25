@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Literal;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.TupleQueryResult;
 
 /**
  *
@@ -24,25 +27,20 @@ public class F084 {
     public static String executeQuery(String qEntity) throws Exception {  
         
         String count = null ;
-        //if(core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)) != null){
-//            String entityTitle = core.CoreServices.getSparqlTitle(core.CoreServices.parseInt(qEntity)); 
-//            entityTitle = entityTitle.replace("'", "");
-            String query ="PREFIX dbr: <http://dbpedia.org/resource/> " +
-                           "PREFIX dbo: <http://dbpedia.org/ontology/> " +
-                           "SELECT (count(distinct ?predicate) as ?count) " +
-                           "WHERE { ?subject ?predicate ?object. ?subject dbo:wikiPageID "+
-                           qEntity +
-                           ".}";
-            ResultSet results = core.CoreServices.executeSparqlQuery(query);
-            while (results.hasNext()) {
-                QuerySolution soln = results.next();
+        String query ="PREFIX dbr: <http://dbpedia.org/resource/> " +
+                       "PREFIX dbo: <http://dbpedia.org/ontology/> " +
+                       "SELECT count(distinct ?predicate) as ?count " +
+                       "WHERE { ?subject ?predicate ?object. ?subject dbo:wikiPageID "+
+                       qEntity +
+                       ".}";
+        TupleQueryResult results = core.CoreServices.executeSparqlQueryLocal(query);
+        while (results.hasNext()) {
+            BindingSet soln = results.next();
+            Value countValue = soln.getValue("count");
+            count = countValue.toString();
+            System.out.println(count);
 
-                Literal countLiteral = ((Literal) soln.get("count"));
-                count = countLiteral.getString();
-                System.out.println(count);
-
-            }
-        //}
+        }
 
         return count;
     }

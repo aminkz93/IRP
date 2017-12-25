@@ -50,8 +50,8 @@ public class IndexSearcher {
         
         QueryParser parser = new QueryParser("contents" ,new StandardAnalyzer());                                 
 	Query query = parser.parse(q);
-//        TopDocs hits = IndexSearcher.search(query, Integer.MAX_VALUE);
-        TopDocs hits = IndexSearcher.search(query, Math.max(1, collector.getTotalHits()));
+        TopDocs hits = IndexSearcher.search(query, Integer.MAX_VALUE);
+//        TopDocs hits = IndexSearcher.search(query, Math.max(1, collector.getTotalHits()));
         
         return hits;
         

@@ -16,6 +16,9 @@ package core.index;
  */
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
-import org.apache.lucene.search.similarities.BM25Similarity;
+import java.io.BufferedReader;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -65,7 +68,8 @@ public class Indexer {
             doc.add(new TextField("contents", document, Field.Store.YES)); 
             doc.add(new StringField("DocId", dEntity,Field.Store.YES));
         }
-            return doc;
+        System.out.println(dEntity);
+        return doc;
         
     }
 
@@ -86,11 +90,31 @@ public class Indexer {
         return writer.numDocs();
     }
     
-    public int indexHashMapStringString(HashMap<String, String> document) throws Exception {
-        for (String key : document.keySet()) {
-            indexFileString(key, document.get(key));
+//    public int indexDocument(String document) throws Exception {
+//        for (String key : document.keySet()) {
+//            indexFileString(key, document.get(key));
+//        }
+//        return writer.numDocs();
+//    }
+//    
+    public int indexDocument(String documentAddress) throws Exception {
+        // Construct BufferedReader from FileReader
+        BufferedReader br = new BufferedReader(new FileReader(new File(documentAddress)));
+        
+        String line = null;
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            String[] lineSplit = line.split(">");
+            String docId = lineSplit[0].substring(29 , lineSplit[0].length());
+           
+            String Contetnt = line.substring(lineSplit[0].length()+lineSplit[1].length()+5,line.length()-6);
+
+            indexFileString(docId, Contetnt);
         }
+
+        br.close();
         return writer.numDocs();
+
     }
   
     public void close() throws IOException {

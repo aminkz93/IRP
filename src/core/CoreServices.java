@@ -16,6 +16,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -203,6 +206,13 @@ public class CoreServices {
         
         return SPARQLUtil.INSTANCE.dbpediaQuery(query);
         
+    }
+    
+    public static TupleQueryResult executeSparqlQueryLocal(String queryString){
+        
+        TupleQuery query = GraphDBConnection.getInstance().prepareTupleQuery(queryString);
+        TupleQueryResult result = query.evaluate();
+        return result;
     }
 
 

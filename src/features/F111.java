@@ -70,12 +70,18 @@ public class F111 {
         double result;
         for (String qentity : qEntity) {
             for (String dentity : dEntity) {
-                if (resultsDoc.containsKey(dentity)) {
-                    result = resultsDoc.get(dentity);
-                } else {
-                    result = 0;
+                if(workingSet.getEntityTitle().containsKey(dentity)){
+                    for(String title : workingSet.getEntityTitle().get(dentity)){
+                        if (resultsDoc.containsKey(title)) {
+                            result = resultsDoc.get(title);
+                            System.out.println(title);
+                        } else {
+                            result = 0;
+                        }
+//                        output += qentity + "-" + dentity + " " + result + "\n";
+                        output += workingSet.getEntitytitle(qentity) + "-" + workingSet.getEntitytitle(dentity) + " " + result + "\n";
+                    }
                 }
-                output += qentity + "-" + dentity + " " + result + "\n";
             }
         }
         
