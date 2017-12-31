@@ -32,9 +32,11 @@ public class F069 {
         int count = 0;
         double result =0;
         for(String d : dEntities ){
-            for (String value : workingSet.getEntityTitle().get(d)) {
-                if(workingSet.getPageLength().containsKey(value)){
-                    result = Double.parseDouble(workingSet.getPageLength().get(value));
+            if(workingSet.getEntityTitle().containsKey(d)){
+                for (String value : workingSet.getEntityTitle().get(d)) {
+                    if(workingSet.getPageLength().containsKey(value)){
+                        result = Double.parseDouble(workingSet.getPageLength().get(value));
+                    }
                 }
             }
             stringOutput += d + " " + result +"\n";

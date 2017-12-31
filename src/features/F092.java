@@ -49,11 +49,13 @@ public class F092 {
     public int executeQuery(String qEntity) throws Exception {  
         
         int count =0 ;
-        for (String value : workingSet.getEntityTitle().get(qEntity)) {
-            if(workingSet.getExternalLinks().containsKey(value)){
-                count = workingSet.getExternalLinks().get(value).size();
+        if(workingSet.getEntityTitle().containsKey(qEntity)){
+            for (String value : workingSet.getEntityTitle().get(qEntity)) {
+                if(workingSet.getExternalLinks().containsKey(value)){
+                    count = workingSet.getExternalLinks().get(value).size();
+                }
+
             }
-            
         }
 
         return count;

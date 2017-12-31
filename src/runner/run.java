@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import core.index.WikiPediaRanker;
-import features.F116;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.eclipse.rdf4j.query.BindingSet;
@@ -46,26 +45,49 @@ public class run {
 //        ProcessInputFiles.pageLengthHashMapCreateAndSaveRunner();
 //        
 //        ProcessInputFiles.categoryHashMapCreateAndSaveRunner();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S2"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S3"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S4"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S5"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S1"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S2"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S3"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S4"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S5"));
-        out.outputF116();
+            
+        SemiFinalOutput semf = new SemiFinalOutput(new WorkingSet("2007","S1"));
+        semf.outputSelectedFeatures();
+        semf = new SemiFinalOutput(new WorkingSet("2007","S2"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2007","S3"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2007","S4"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2007","S5"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2008","S1"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2008","S2"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2008","S3"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2008","S4"));
+        semf.outputSelectedFeatures(); 
+        semf = new SemiFinalOutput(new WorkingSet("2008","S5"));
+        semf.outputSelectedFeatures(); 
+        
+            
+//        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2007","S2"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2007","S3"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2007","S4"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2007","S5"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2008","S1"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2008","S2"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2008","S3"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2008","S4"));
+//        out.outputF116();
+//        out = new CreateOutput(new WorkingSet("2008","S5"));
+//        out.outputF116();
 //        WorkingSet ws =new WorkingSet("2008","S1");
 //        ws.getEntitytitle("29486330");
         
@@ -184,7 +206,7 @@ public class run {
 //        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
         
 //        LetorOutput letorOutput = new  LetorOutput(new  WorkingSet("2007", "S1"));
-//        letorOutput.createLetorFileWithNewFeatures(47);
+//        letorOutput.outputSelectedFeatures(47);
 //        F003 f = new F003();
 //        List<Integer> l = new ArrayList<>();
 //        l.add(9888963);
@@ -219,6 +241,14 @@ public class run {
 //           System.out.println("--------------------------");
 //       }
 //            createFiles();
+    }
+    
+    public static int[] testttt(){
+        int[] ret = new int[3];
+        ret[0] = 100;
+        ret[1] = 101;
+        ret[2] = 102;
+        return ret;
     }
 
     public static void test1() throws FileNotFoundException, UnsupportedEncodingException, Exception{
