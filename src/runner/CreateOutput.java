@@ -26,22 +26,19 @@ public class CreateOutput {
         this.workingSet = workingSet;
     }
 
+   
+    
     public void outputF095() {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F95"+ workingSet.getSFileNumber()+ ".txt";
         F095 f95 = new F095(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
-//                System.out.println(f95.print(qid, docid));
                 fileWriterContinue(f95.print(qid, docid), saveAddress);
-//                output += f95.print(qid, docid);
 
             }
         }
-//        writeOutputToFile(output,saveAddress);
         System.out.println("F95.txt" + " done");
     }
 
@@ -51,9 +48,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f96.print(qid, docid), saveAddress);
 
             }
@@ -69,9 +64,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f97.print(qid, docid), saveAddress);
 
             }
@@ -86,9 +79,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f98.print(qid, docid), saveAddress);
 
             }
@@ -102,13 +93,9 @@ public class CreateOutput {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F99"+ workingSet.getSFileNumber()+ ".txt";
         F099 f99 = new F099(workingSet);
         String output = "";
-//        writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 System.out.println(f99.print(qid, docid));
-//                fileWriterContinue(f99.print(qid, docid), saveAddress);
 
             }
         }
@@ -122,9 +109,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f100.print(qid, docid), saveAddress);
 
             }
@@ -140,9 +125,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f101.print(docid), saveAddress);
 
             }
@@ -158,7 +141,6 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             fileWriterContinue(f102.print(qid), saveAddress);
         }
 
@@ -172,7 +154,6 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             fileWriterContinue(f103.print(qid), saveAddress);
         }
 
@@ -186,7 +167,6 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             fileWriterContinue(f104.print(qid), saveAddress);
         }
 
@@ -200,9 +180,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f105.print(qid, docid), saveAddress);
 
             }
@@ -218,9 +196,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f106.print(qid, docid), saveAddress);
 
             }
@@ -235,10 +211,8 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             f107.execute(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
                 fileWriterContinue(f107.print(qid,docid), saveAddress);
 
             }

@@ -6,6 +6,7 @@
 package features;
 
 import core.CoreServices;
+import core.WorkingSet;
 
 /**
  *
@@ -13,6 +14,9 @@ import core.CoreServices;
  */
 public class F001 {
     
+    public F001(WorkingSet workingset){
+        
+    }
     public static double getNumberOfGoogleSearchResult(String query){
         return CoreServices.getNumberOfSearchResult(query);
     }
