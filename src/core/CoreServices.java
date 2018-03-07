@@ -58,15 +58,15 @@ public class CoreServices {
             return null;
         }
     }
-    public static double getNumberOfSearchResult(String query){
+    public static double getNumberOfSearchResult(String query) throws Exception{
         String searchURL = "https://www.google.com/search?site=&source=hp&q="+query+"&oq="+query+"&gs_l=psy-ab.3..35i39k1l2j0i67k1l2.890.1193.0.1300.4.4.0.0.0.0.204.372.0j1j1.2.0....0...1.1.64.psy-ab..2.1.203.0.QEjnRPYjPFQ";
         Element element = null;
-        try {
+//        try {
             Document htmlDocument = Jsoup.connect(searchURL).get();
             element = htmlDocument.select("#resultStats").first();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         if(element!=null) {
             String result = Jsoup.parse(element.html()).text().replaceAll("[^0-9]", "");
             return Double.parseDouble(result.substring(0,result.length()-3));

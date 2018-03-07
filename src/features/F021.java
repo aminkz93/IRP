@@ -7,6 +7,9 @@ package features;
 
 import core.WorkingSet;
 import java.util.ArrayList;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQueryResult;
@@ -37,16 +40,48 @@ public class F021 {
                         " .\n" +
                         "    ?entity1   ?predicate  ?entity2\n" +
                         "  }";
-        TupleQueryResult results = core.CoreServices.executeSparqlQueryLocal(query);
+        ResultSet results = core.CoreServices.executeSparqlQuery(query);
         while (results.hasNext()) {
-            BindingSet soln = results.next();
+            QuerySolution soln = results.next();
 
-            Value countLiteral =  soln.getValue("Totalpredicate");
+            Literal countLiteral =  soln.getLiteral("Totalpredicate");
             count = countLiteral.toString();
-            System.out.println(count);
+            
         }
         return count;
     }
+    public static String execute(String qEntity , String dEntity)  {  
+        
+        String output = "" ;
+        try{
+            String query ="PREFIX  dbo:  <http://dbpedia.org/ontology/>\n" +
+                            "PREFIX  dbp:  <http://dbpedia.org/property/>\n" +
+                            "\n" +
+                            "select (COUNT(DISTINCT ?predicate) AS ?Totalpredicate)\n" +
+                            "WHERE\n" +
+                            "  { ?entity1  dbo:wikiPageID  "+
+                            qEntity+
+                            " .\n" +
+                            "    ?entity2  dbo:wikiPageID  "+
+                            dEntity+
+                            " .\n" +
+                            "    ?entity1   ?predicate  ?entity2\n" +
+                            "  }";
+            ResultSet results = core.CoreServices.executeSparqlQuery(query);
+            while (results.hasNext()) {
+                QuerySolution soln = results.next();
+
+                Literal countLiteral =  soln.getLiteral("Totalpredicate");
+                output = qEntity + "-" + dEntity + " " + countLiteral.getValue()+"\n";
+
+            }
+        }
+        catch(Exception ex){
+            output = qEntity + "-" + dEntity + " exception\n" ;
+        }
+        return output;
+    }
+    
     public String print(String qid, String did) throws Exception {
         ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
         ArrayList<String> dEntities = workingSet.getDocumentEntities(did);
