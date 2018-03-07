@@ -17,8 +17,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import core.index.WikiPediaRanker;
 import features.F116;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
+import static org.apache.jena.tdb.sys.FileRef.file;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQuery;
 import org.eclipse.rdf4j.query.TupleQueryResult;
@@ -38,6 +43,13 @@ public class run {
      */
     public static void main(String[] args) throws Exception {
 
+//        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
+//        SummerizeFile.summerize("instance_types_en.ttl", "SummerizedTypes.Entity", new WorkingSet("2007","S1"));
+       
+//
+//        br.close();
+//        WorkingSet ws = new WorkingSet("2008", "S1");
+//        System.out.println(ws.getEntityTitle().get("1047024"));
 //        test1();
 //        testsparqlQuery();
 //        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
@@ -46,26 +58,27 @@ public class run {
 //        ProcessInputFiles.pageLengthHashMapCreateAndSaveRunner();
 //        
 //        ProcessInputFiles.categoryHashMapCreateAndSaveRunner();
-        CreateOutput out = new CreateOutput(new WorkingSet("2007","S1"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S2"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S3"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S4"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2007","S5"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S1"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S2"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S3"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S4"));
-        out.outputF116();
-        out = new CreateOutput(new WorkingSet("2008","S5"));
-        out.outputF116();
+//        int count = 0;
+//        WorkingSet ws = new WorkingSet("2008", "S1");
+//        System.out.println("total entity is:"+ ws.entityTitle.size());
+//        for (String key :ws.entityTitle.keySet()) {
+//            ArrayList<String> values = ws.entityTitle.get(key);
+//            if( ws.getCategory().containsKey(values.get(0)) ){
+//                count +
+//                
+//            }
+////            
+//            else if(values.size()>=2 && ws.getCategory().containsKey(values.get(1))){
+//                count++;
+//        
+//            }
+//            else 
+//                System.out.println(key);
+////            
+//        }
+//        System.out.println("the number of used:"+count);
+//        System.out.println("category size:"+ws.getCategory().size());
+        
 //        WorkingSet ws =new WorkingSet("2008","S1");
 //        ws.getEntitytitle("29486330");
         
@@ -83,8 +96,16 @@ public class run {
 //           }
 //           System.out.println(hs.size());
 //           File PageLength = new File("./data/Total/SummerizedTypes.Entity");
-//        PageLength.createNewFile();
-//        BufferedReader br = new BufferedReader(new FileReader(new File("./data/Total/Types.Entity")));
+//           PageLength.createNewFile();
+        BufferedReader br = new BufferedReader(new FileReader(new File("./data/Total/instance_types_en.ttl")));
+        String line =null; 
+        while((line = br.readLine())!= null )
+        {
+            if(line.contains("Long-tailed_duck")){
+                System.out.println(line);
+            }
+        }
+        br.close();
 //        BufferedWriter bw = new BufferedWriter(new FileWriter(PageLength));
 //        int i =0;
 //        String line = null;
@@ -233,76 +254,6 @@ public class run {
         out.outputF112();
         out.outputF113();
         out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2007","S1"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2007","S2"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2007","S3"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2007","S4"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2007","S5"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2008","S1"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2008","S2"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2008","S3"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2008","S4"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
-//        out = new CreateOutput(new WorkingSet("2008","S5"));
-//        out.outputF094();
-//        out.outputF003();
-//        out.outputF111();
-//        out.outputF112();
-//        out.outputF113();
-//        out.outputF114();
         
     }
     public static void test2() throws FileNotFoundException, UnsupportedEncodingException, Exception{

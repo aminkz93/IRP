@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -89,26 +90,42 @@ public class ProcessInputFiles {
     }
     
     private static HashMap<String, ArrayList<String>> createEnityTitleHashMap(File fin) throws IOException {
+        WorkingSet ws = new WorkingSet("2008", "S1");
+        
+        HashSet<String> hs = new HashSet<>();
+        for(String key : ws.getEntityTitle().keySet()){
+            for (String value: ws.getEntityTitle().get(key)) {
+                hs.add(key);
+            }
+        }
         HashMap<String, ArrayList<String>> map = new HashMap<>();
         // Construct BufferedReader from FileReader
         BufferedReader br = new BufferedReader(new FileReader(fin));
-        int i =0;
+           
         String line = null;
         while ((line = br.readLine()) != null) {
-            String[] lineSplit = line.split(":");
-            if(lineSplit.length>0){
-            String key = lineSplit[0];
-            
-            ArrayList<String> titles = new ArrayList<>();
-            titles.add((lineSplit[1].substring(0,lineSplit[1].length()-1)).replace(' ', '_'));
-            if(lineSplit.length>2){
-                titles.add((lineSplit[2].substring(1,lineSplit[2].length())).replace(' ', '_'));
-            }
-            map.put(key, titles);
+            String[] lineSplit = line.split(">");
+            if(lineSplit.length>1){
+                
+                ArrayList<String> values = new ArrayList<>();
+                String key = lineSplit[2].split("\"")[1];
+                values.add( lineSplit[0].substring(29,lineSplit[0].length()));
+                System.out.println("key:"+key +" value"+values.get(0));
+                
+                if(ws.getEntityTitle().containsKey(key))
+                {
+                    map.put(key, values);
+                    System.out.println("key:"+key +" value"+values.get(0));
+                    hs.remove(key);
+                }
             }
         }
 
         br.close();
+        System.out.println("number of remain: "+hs.size());
+        for (String s: hs) {
+            System.out.println(s);
+        }
         return map;
     }
 
@@ -490,7 +507,8 @@ public class ProcessInputFiles {
     HASHMAPS CAN BE LOADED INTO MEMORY WHENEVER NEEDED
      */
     public static void entityTitleHashMapCreateAndSaveRunner() {
-        String[] entityTitleFiles = {"./data/Total/Title.Entity"};
+//        String[] entityTitleFiles = {"./data/Total/Title.Entity"};
+        String[] entityTitleFiles = {"./data/Total/page_ids_en.ttl"};
         String[] outputEntityTitleNames = {"EntityTitle-Hashmap"};
         for (int i = 0; i < entityTitleFiles.length; i++) {
             storeEntityTitleHashMap(entityTitleFiles[i], outputEntityTitleNames[i]);

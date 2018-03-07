@@ -24,14 +24,25 @@ public class F001 {
         return CoreServices.getNumberOfSearchResult(query);
     }
     
+    public String execute(String entity){
+        String output = "";
+        try{
+            double result = getNumberOfGoogleSearchResult(workingSet.getEntityTitle().get(entity).get(0));
+
+            output += entity + " " + result;
+        }
+        catch(Exception ex){
+            output += entity + " " + "exception";
+        }
+        
+        return output;
+    }
     public String print(){
         String output = "";
         for(String q : workingSet.getEntityTitle().keySet()){
             try{
                 double result = getNumberOfGoogleSearchResult(workingSet.getEntityTitle().get(q).get(0));
-                if(result ==0){
-                    result = getNumberOfGoogleSearchResult(workingSet.getEntityTitle().get(q).get(1));
-                }
+                
                 output += q + " " + result;
             }
             catch(Exception ex){

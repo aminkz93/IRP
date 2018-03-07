@@ -28,10 +28,19 @@ public class CreateOutput {
     
     public void outputF001(){
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F01"+ workingSet.getSFileNumber()+ ".txt";
+        String saveExceptionAddress = "./output/exception/" + workingSet.getWorkingSetName() + "/F01"+ workingSet.getSFileNumber()+ ".txt";
         F001 f01 = new F001(workingSet);
         String output = "";
         writeOutputToFile(output, saveAddress);
-        fileWriterContinue(f01.print(), saveAddress);
+        writeOutputToFile(output, saveExceptionAddress);
+        for (String qid : workingSet.getEntityTitle().keySet()) {
+            output = f01.execute(qid);
+            if(output.contains("exception")){
+                fileWriterContinue(output, saveExceptionAddress);
+            }
+            else
+                fileWriterContinue(output, saveAddress);
+        }
         System.out.println("F01.txt" + " done");
     }
     

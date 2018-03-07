@@ -205,18 +205,18 @@ public class WorkingSet {
         System.out.println("Loading queryRelatedDocument Hashmap Done");
         document = ProcessInputFiles.deserializeHashMap(address + workingSetName + "-documents-Hashmap");
         System.out.println("Loading Documents Hashmap Done");
-//        queryTopic = ProcessInputFiles.deserializeHashMapStringString(address + workingSetName + "-queriesTopic-Hashmap");
-//        System.out.println("Loading queriesTopic Hashmap Done");
-        entityTitle = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/Titles-Hashmap");
+        queryTopic = ProcessInputFiles.deserializeHashMapStringString(address + workingSetName + "-queriesTopic-Hashmap");
+        System.out.println("Loading queriesTopic Hashmap Done");
+        entityTitle = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/EntityTitle-Hashmap");
         System.out.println("Loading entityTitle Hashmap Done");
-//        category = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/SummerizedArticleCategories-Hashmap");
-//        System.out.println("Loading category Hashmap Done");
-//        externalLinks = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/SummerizedEntityExternalLinks-Hashmap");
-//        System.out.println("Loading ExternalLinks Hashmap Done");
+        category = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/SummerizedArticleCategories-Hashmap");
+        System.out.println("Loading category Hashmap Done");
+        externalLinks = ProcessInputFiles.deserializeHashMap("./data/Total/serialized/SummerizedEntityExternalLinks-Hashmap");
+        System.out.println("Loading ExternalLinks Hashmap Done");
         types = ProcessInputFiles.deserializeHashMapStringString("./data/Total/serialized/SummerizedEntityType-Hashmap");
         System.out.println("Loading entity Type Hashmap Done");
-//        pageLength = ProcessInputFiles.deserializeHashMapStringString("./data/Total/serialized/SummerizedPageLength-Hashmap");
-//        System.out.println("Loading pageLength Hashmap Done");
+        pageLength = ProcessInputFiles.deserializeHashMapStringString("./data/Total/serialized/SummerizedPageLength-Hashmap");
+        System.out.println("Loading pageLength Hashmap Done");
     }
 
     private void writeDocHashMapToFile() throws FileNotFoundException, UnsupportedEncodingException {
