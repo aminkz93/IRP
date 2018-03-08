@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,9 +38,11 @@ public class CreateOutput {
             output = f01.execute(qid);
             if(output.contains("exception")){
                 fileWriterContinue(output, saveExceptionAddress);
+                
             }
             else
                 fileWriterContinue(output, saveAddress);
+            System.out.println(output);
         }
         System.out.println("F01.txt" + " done");
     }
@@ -50,10 +53,7 @@ public class CreateOutput {
         String output = "";
         writeOutputToFile(output, saveAddress);
         for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
-//            System.out.println(qid);
             for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
-//                System.out.println(docid);
-//                System.out.println(f95.print(qid, docid));
 //                fileWriterContinue(f03.print(qid, docid), saveAddress);
 //                output += f95.print(qid, docid);
 
@@ -61,6 +61,35 @@ public class CreateOutput {
         }
 //        writeOutputToFile(output,saveAddress);
         System.out.println("F03.txt" + " done");
+    }
+    public void outputF021() {
+        String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F021"+ workingSet.getSFileNumber()+ ".txt";
+        String saveExceptionAddress = "./output/exception/" + workingSet.getWorkingSetName() + "/F021"+ workingSet.getSFileNumber()+ ".txt";
+        F021 f21 = new F021(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveAddress);
+        writeOutputToFile(output, saveExceptionAddress);
+        for (String qid : workingSet.getQueryRelatedDocument().keySet()) {
+            for (String docid : workingSet.getQueryRelatedDocument().get(qid)) {
+                ArrayList<String> qEntities = workingSet.getQueryEntities(qid);
+                ArrayList<String> dEntities = workingSet.getDocumentEntities(docid);
+                for(String q : qEntities){
+                    for(String d : dEntities ){
+                        output = f21.execute(q,d);
+                        if(output.contains("exception")){
+                            fileWriterContinue(output, saveExceptionAddress);
+
+                        }
+                        else
+                            fileWriterContinue(output, saveAddress);
+                        System.out.println(output);
+                    }
+                }
+                
+
+            }
+        }
+        System.out.println("F021.txt" + " done");
     }
     
     public void outputF092() throws Exception {

@@ -20,19 +20,21 @@ public class F001 {
         workingSet = ws;
     }
     
-    public  double getNumberOfGoogleSearchResult(String query){
+    public  double getNumberOfGoogleSearchResult(String query) throws Exception{
         return CoreServices.getNumberOfSearchResult(query);
     }
     
     public String execute(String entity){
         String output = "";
         try{
-            double result = getNumberOfGoogleSearchResult(workingSet.getEntityTitle().get(entity).get(0));
+            String entityName = workingSet.getEntityTitle().get(entity).get(0).replaceAll("_", " ");
+            System.out.println(entityName);
+            double result = getNumberOfGoogleSearchResult(entityName);
 
-            output += entity + " " + result;
+            output += entity + " " + result + "\n";
         }
         catch(Exception ex){
-            output += entity + " " + "exception";
+            output += entity + " " + "exception\n";
         }
         
         return output;

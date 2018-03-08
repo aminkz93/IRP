@@ -5,6 +5,7 @@
  */
 package runner;
 
+import core.CoreServices;
 import core.ProcessInputFiles;
 import core.WorkingSet;
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class run {
      */
     public static void main(String[] args) throws Exception {
 
+        CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
+        out.outputF021();
 //        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
 //        SummerizeFile.summerize("instance_types_en.ttl", "SummerizedTypes.Entity", new WorkingSet("2007","S1"));
        
