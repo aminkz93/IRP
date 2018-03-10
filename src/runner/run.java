@@ -35,7 +35,7 @@ import org.eclipse.rdf4j.repository.manager.RemoteRepositoryManager;
 
 /**
  *
- * @author amin
+ * @author amin 
  */
 public class run {
 
@@ -44,8 +44,10 @@ public class run {
      */
     public static void main(String[] args) throws Exception {
 
-        CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
-        out.outputF021();
+        SFileMerger merger = new SFileMerger();
+        merger.merge();
+//        CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
+//        out.outputF021();
 //        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
 //        SummerizeFile.summerize("instance_types_en.ttl", "SummerizedTypes.Entity", new WorkingSet("2007","S1"));
        
@@ -100,15 +102,15 @@ public class run {
 //           System.out.println(hs.size());
 //           File PageLength = new File("./data/Total/SummerizedTypes.Entity");
 //           PageLength.createNewFile();
-        BufferedReader br = new BufferedReader(new FileReader(new File("./data/Total/instance_types_en.ttl")));
-        String line =null; 
-        while((line = br.readLine())!= null )
-        {
-            if(line.contains("Long-tailed_duck")){
-                System.out.println(line);
-            }
-        }
-        br.close();
+//        BufferedReader br = new BufferedReader(new FileReader(new File("./data/Total/instance_types_en.ttl")));
+//        String line =null; 
+//        while((line = br.readLine())!= null )
+//        {
+//            if(line.contains("Long-tailed_duck")){
+//                System.out.println(line);
+//            }
+//        }
+//        br.close();
 //        BufferedWriter bw = new BufferedWriter(new FileWriter(PageLength));
 //        int i =0;
 //        String line = null;
