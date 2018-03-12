@@ -14,8 +14,10 @@ import java.util.logging.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.eclipse.rdf4j.query.BindingSet;
@@ -24,6 +26,7 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
 
 /**
  *
@@ -210,13 +213,14 @@ public class CoreServices {
         return dbpediaQuery(query);
         
     }
-    public static  ResultSet dbpediaQuery (String query)
+    public static  ResultSet dbpediaQuery (String queryString)
     {
+        Query query = QueryFactory.create(queryString);
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
-
         ResultSet results = queryExecution.execSelect();
-
+        queryExecution.close();
         return results;
+
     }
     
     public static TupleQueryResult executeSparqlQueryLocal(String queryString){

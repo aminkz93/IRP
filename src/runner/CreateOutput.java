@@ -6,6 +6,7 @@
 package runner;
 
 import core.WorkingSet;
+import core.sqlConnection.SqlConnection;
 import features.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -81,13 +82,40 @@ public class CreateOutput {
 
                         }
                         else
+                        {
                             fileWriterContinue(output, saveAddress);
+                        }
                         System.out.println(output);
                     }
                 }
                 
 
             }
+        }
+        System.out.println("F021.txt" + " done");
+    }
+    
+    public void outputF021sql() {
+        String saveExceptionAddress = "./output/exception/" + workingSet.getWorkingSetName() + "/F021"+ workingSet.getSFileNumber()+ ".txt";
+        F021 f21 = new F021(workingSet);
+        String output = "";
+        writeOutputToFile(output, saveExceptionAddress);
+        for (int i= 653513; i<4857282 ; i++) {
+            String pair = SqlConnection.selectPair(i);
+            String[] cells = pair.split("-");
+            if(cells.length ==2){
+                output = f21.execute(cells[0],cells[1]);
+                if(output.contains("exception")){
+                    fileWriterContinue(output, saveExceptionAddress);
+                    SqlConnection.updateFeature("F21", i, -1);
+                }
+                else
+                {
+                    String result = output.split("\\s+")[1];
+                    SqlConnection.updateFeature("F21", i, Double.parseDouble(result));
+                }
+            }
+            System.out.println(output);
         }
         System.out.println("F021.txt" + " done");
     }

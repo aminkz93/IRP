@@ -7,6 +7,10 @@ package features;
 
 import core.WorkingSet;
 import java.util.ArrayList;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Literal;
@@ -54,7 +58,7 @@ public class F021 {
         
         String output = "" ;
         try{
-            String query ="PREFIX  dbo:  <http://dbpedia.org/ontology/>\n" +
+            String queryString ="PREFIX  dbo:  <http://dbpedia.org/ontology/>\n" +
                             "PREFIX  dbp:  <http://dbpedia.org/property/>\n" +
                             "\n" +
                             "select (COUNT(DISTINCT ?predicate) AS ?Totalpredicate)\n" +
@@ -67,7 +71,9 @@ public class F021 {
                             " .\n" +
                             "    ?entity1   ?predicate  ?entity2\n" +
                             "  }";
-            ResultSet results = core.CoreServices.executeSparqlQuery(query);
+            Query query = QueryFactory.create(queryString);
+            QueryExecution queryExecution = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+            ResultSet results = queryExecution.execSelect();
             while (results.hasNext()) {
                 QuerySolution soln = results.next();
 
@@ -75,6 +81,7 @@ public class F021 {
                 output = qEntity + "-" + dEntity + " " + countLiteral.getValue()+"\n";
 
             }
+            queryExecution.close();
         }
         catch(Exception ex){
             output = qEntity + "-" + dEntity + " exception\n" ;

@@ -51,12 +51,12 @@ public class SFileMerger {
             }
         }
         SqlConnection.getInstance();
-        SqlConnection.execute("delete from idonlinesparql");
+        SqlConnection.insert("delete from idonlinesparql");
         String query= "";
         for (String entityPair :EntityPairs) {
             query = "insert into idonlinesparql(entityPair) values ('"+
                     entityPair+"')";
-            SqlConnection.execute(query);
+            SqlConnection.insert(query);
         }
         
     }

@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import core.index.WikiPediaRanker;
+import core.sqlConnection.SqlConnection;
 import features.F116;
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,10 +45,11 @@ public class run {
      */
     public static void main(String[] args) throws Exception {
 
-        SFileMerger merger = new SFileMerger();
-        merger.merge();
-//        CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
-//        out.outputF021();
+        SqlConnection.getInstance();
+        CreateOutput out = new CreateOutput(new WorkingSet("2008", "S1"));
+        out.outputF021sql();
+        
+        
 //        ProcessInputFiles.entityTitleHashMapCreateAndSaveRunner();
 //        SummerizeFile.summerize("instance_types_en.ttl", "SummerizedTypes.Entity", new WorkingSet("2007","S1"));
        
