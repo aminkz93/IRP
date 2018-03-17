@@ -5,6 +5,7 @@
  */
 package runner;
 
+import static com.google.common.util.concurrent.Striped.lock;
 import core.WorkingSet;
 import core.sqlConnection.SqlConnection;
 import features.*;
@@ -23,7 +24,9 @@ import java.util.logging.Logger;
 public class CreateOutput {
 
     private WorkingSet workingSet;
-
+    public int WaitingRequest = 0;
+    private final Object lock = new Object();
+    
     public CreateOutput(WorkingSet workingSet) {
         this.workingSet = workingSet;
     }
@@ -100,13 +103,63 @@ public class CreateOutput {
         F021 f21 = new F021(workingSet);
         String output = "";
         writeOutputToFile(output, saveExceptionAddress);
-        for (int i= 653513; i<4857282 ; i++) {
+        for (int i= 715905; i<4857282 ; i++) {
             String pair = SqlConnection.selectPair(i);
             String[] cells = pair.split("-");
             if(cells.length ==2){
-                output = f21.execute(cells[0],cells[1]);
+                
+                request(cells[0],cells[1],saveExceptionAddress,i,new ResponseHandler() {
+                    @Override
+                    public void onResponse(String result) {
+                        System.out.println("RESULT:\t"+result);
+                        synchronized (lock) {
+                            WaitingRequest-- ; 
+                        }
+                        
+                    }
+                });
+                System.out.println("request "+i+" sent!");
+                try{
+                    if(WaitingRequest <10000)
+                        Thread.sleep(5);
+                    else if (WaitingRequest >60000){
+                         while(WaitingRequest >60000)
+                             Thread.sleep(100);
+                    }
+                    else  {
+                        int time = WaitingRequest/100;
+                        Thread.sleep(time);
+                    }
+                        
+                }
+                catch(InterruptedException ex){
+                    Logger.getLogger(CreateOutput.class.getName()).log(Level.SEVERE , null , ex);
+                }
+//                output = f21.execute(cells[0],cells[1]);
+//                if(output.contains("exception")){
+//                    fileWriterContinue(output, saveExceptionAddress);
+//                    SqlConnection.updateFeature("F21", i, -1);
+//                }
+//                else
+//                {
+//                    String result = output.split("\\s+")[1];
+//                    SqlConnection.updateFeature("F21", i, Double.parseDouble(result));
+//                }
+            }
+        }
+        System.out.println("F021.txt" + " done");
+    }
+    
+    public void request(String s1 , String s2 , String address , int i , ResponseHandler responseHandler){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("new thread");
+                F021 f21 = new F021(workingSet);
+                String output = "";
+                output = f21.execute(s1,s2);
                 if(output.contains("exception")){
-                    fileWriterContinue(output, saveExceptionAddress);
+                    fileWriterContinue(output, address);
                     SqlConnection.updateFeature("F21", i, -1);
                 }
                 else
@@ -114,12 +167,16 @@ public class CreateOutput {
                     String result = output.split("\\s+")[1];
                     SqlConnection.updateFeature("F21", i, Double.parseDouble(result));
                 }
+                System.out.println(output);
+                
             }
-            System.out.println(output);
+        };
+        synchronized (lock) {
+            WaitingRequest++ ; 
         }
-        System.out.println("F021.txt" + " done");
+        Thread t=new Thread(r);
+        t.start();
     }
-    
     public void outputF092() throws Exception {
         String saveAddress = "./output/" + workingSet.getWorkingSetName() + "/F92"+ workingSet.getSFileNumber()+ ".txt";
         F092 f92 = new F092(workingSet);

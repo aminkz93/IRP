@@ -47,7 +47,7 @@ public class SqlConnection {
             return 0;
         }
     }
-    public static String selectPair(int id ){
+    public synchronized static String selectPair(int id ){
         try {
             String query = "select entityPair from idonlinesparql where id ="+id;
             ResultSet rs = statement.executeQuery(query);
@@ -63,7 +63,7 @@ public class SqlConnection {
         }
     }
     
-    public static int updateFeature(String feature, int id ,double result ){
+    public synchronized static int updateFeature(String feature, int id ,double result ){
         try {
             String query = "update idonlinesparql set "+feature+"=" + result+" where id ="+id;
             int rs = statement.executeUpdate(query);
