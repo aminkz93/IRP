@@ -103,7 +103,7 @@ public class CreateOutput {
         F021 f21 = new F021(workingSet);
         String output = "";
         writeOutputToFile(output, saveExceptionAddress);
-        for (int i= 715905; i<4857282 ; i++) {
+        for (int i= 344501; i<4857282 ; i++) {
             String pair = SqlConnection.selectPair(i);
             String[] cells = pair.split("-");
             if(cells.length ==2){
